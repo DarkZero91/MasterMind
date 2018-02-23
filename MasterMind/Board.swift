@@ -7,3 +7,15 @@
 //
 
 import Foundation
+
+class Board: NSObject {
+    var attempts: [Attempt] = []
+    
+    func getAttempts() -> [Attempt] {
+        return attempts
+    }
+    
+    func addAttempt(attempt: Attempt) {
+        self.attempts.append(attempt)
+    }
+}

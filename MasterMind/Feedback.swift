@@ -7,3 +7,16 @@
 //
 
 import Foundation
+
+class Feedback: NSObject {
+    var hits: Int8 = 0
+    var misaligned: Int8 = 0
+    
+    func getHits() -> Int8 {
+        return hits
+    }
+    
+    func getMisaligned() -> Int8 {
+        return misaligned
+    }
+}
