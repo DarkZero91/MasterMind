@@ -66,12 +66,20 @@
 		5CDF6E32204006D600A2FC61 /* MasterMind */ = {
 			isa = PBXGroup;
 			children = (
+				5CDF6E53204028E700A2FC61 /* Models */,
 				5CDF6E33204006D600A2FC61 /* AppDelegate.swift */,
 				5CDF6E35204006D600A2FC61 /* ViewController.swift */,
 				5CDF6E37204006D600A2FC61 /* Main.storyboard */,
 				5CDF6E3A204006D600A2FC61 /* Assets.xcassets */,
 				5CDF6E3C204006D600A2FC61 /* LaunchScreen.storyboard */,
 				5CDF6E3F204006D600A2FC61 /* Info.plist */,
+			);
+			path = MasterMind;
+			sourceTree = "<group>";
+		};
+		5CDF6E53204028E700A2FC61 /* Models */ = {
+			isa = PBXGroup;
+			children = (
 				5CDF6E472040100300A2FC61 /* Feedback.swift */,
 				5CDF6E492040102D00A2FC61 /* Player.swift */,
 				5CDF6E4B2040106800A2FC61 /* Attempt.swift */,
@@ -79,7 +87,7 @@
 				5CDF6E4F2040109100A2FC61 /* Board.swift */,
 				5CDF6E51204010B200A2FC61 /* MasterMind.swift */,
 			);
-			path = MasterMind;
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
