@@ -230,13 +230,11 @@ def calculateGiveAwayValues(codes, ownCode, a, b):
 		giveAwayValues.append(len([x for x in fitnesses if x==0]))
 	return zip(codes, giveAwayValues)
 
-def geneticAlgorithm(clues, ownCode):
+def geneticAlgorithm(clues, ownCode, a, b):
 	# initialize genetic algorithm
 	maxgen = 100
 	maxsize = 60
 	populationSize = 150
-	a = 2
-	b = 2
 	eligibleCodes = []
 	generation = 1
 	population = generateNewPopulation(populationSize)
@@ -251,16 +249,18 @@ def geneticAlgorithm(clues, ownCode):
 	return eligibleCodes
 
 def calculateStatistics(clues, ownCode):
+	a = 2
+	b = 2
 	if(clues == []): # start with random guess
 		return None, None
 	else:
 		# calculate estimated potential info gains
-		infoGainCodes = geneticAlgorithm(clues, ownCode=False)
+		infoGainCodes = geneticAlgorithm(clues, ownCode=False, a=a, b=b)
 		infoGainValues = calculateSelectionValues(codes=infoGainCodes, a=a, b=b)
 		# calculate estimated potential info given away
-		giveAwayCodes = geneticAlgorithm(clues, ownCode=True)
+		giveAwayCodes = geneticAlgorithm(clues, ownCode=True, a=a, b=b)
 		giveAwayValues = calculateGiveAwayValues(codes=giveAwayCodes, ownCode=ownCode, a=a, b=b)
-	return infoGainValues, giveAwayValues
+		return infoGainValues, giveAwayValues
 
 def chooseAttempt(clues, ownCode):
 	infoGainValues, giveAwayValues = calculateStatistics(clues, ownCode)
@@ -279,7 +279,7 @@ def chooseAttempt(clues, ownCode):
 def playGame(ownCode, opponentCode):
 	clues = []
 	attempts = 1
-	attempt = geneticAlgorithm(clues, ownCode)
+	attempt = chooseAttempt(clues, ownCode)
 	while(attempt!=opponentCode):
 		attempts += 1
 		attempt = chooseAttempt(clues, ownCode)

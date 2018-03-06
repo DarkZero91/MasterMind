@@ -290,13 +290,11 @@ func calculateGiveAwayValues(codes:[[Int]], ownCode:[Int], a:Int, b:Int) -> [[In
     return Array(Zip2(codes, giveAwayValues))
 }
 
-func geneticAlgorithm(clues:[Clue], ownCode:[Int]) -> [[Int]] {
+func geneticAlgorithm(clues:[Clue], ownCode:[Int], a:Int, b:Int) -> [[Int]] {
     //# initialize genetic algorithm
     maxgen = 100
     maxsize = 60
     populationSize = 150
-    a = 2
-    b = 2
     eligibleCodes = [[Int]]
     generation = 1
     population = generateNewPopulation(populationSize)
@@ -314,17 +312,19 @@ func geneticAlgorithm(clues:[Clue], ownCode:[Int]) -> [[Int]] {
 }
 
 func calculateStatistics(clues:[Clue], ownCode:[Int]) -> ([[Int], Double], [[Int], Double]){ // not sure about return type (tuple of lists of tuples, both lists of list of integers and doubles)
+    a = 2
+    b = 2
     if(clues.isEmpty()){ //# start with random guess
         return nil, nil
     } else {
         //# calculate estimated potential info gains
-        infoGainCodes = geneticAlgorithm(clues, false)
+        infoGainCodes = geneticAlgorithm(clues, false, a, b)
         infoGainValues = calculateSelectionValues(infoGainCodes, a, b)
         //# calculate estimated potential info given away
-        giveAwayCodes = geneticAlgorithm(clues, true)
+        giveAwayCodes = geneticAlgorithm(clues, true, a, b)
         giveAwayValues = calculateGiveAwayValues(giveAwayCodes, ownCode, a, b)
+        return infoGainValues, giveAwayValues
     }
-    return infoGainValues, giveAwayValues
 }
 
 func chooseAttempt(clues:[Clue], ownCode:[Int]) -> [Int]{
@@ -346,7 +346,7 @@ func chooseAttempt(clues:[Clue], ownCode:[Int]) -> [Int]{
 func playGame(ownCode:[Int], opponentCode[Int]) -> Int {
     clues = [Clue]
     attempts = 1
-    attempt = geneticAlgorithm(clues, ownCode)
+    attempt = chooseAttempt(clues, ownCode)
     while(attempt!=opponentCode):
         attempts += 1
         attempt = chooseAttempt(clues, ownCode)
