@@ -252,7 +252,7 @@ def geneticAlgorithm(clues, ownCode, a, b):
 def calculateStatistics(clues, ownCode):
 	a = 2
 	b = 2
-	if(clues == []): # start with random guess
+	if(clues == []): # start with random guess -> TODO include giveaway values for EVERY(1296) possible code
 		return None, None
 	else:
 		# calculate estimated potential info gains
@@ -265,7 +265,7 @@ def calculateStatistics(clues, ownCode):
 
 def chooseAttempt(clues, ownCode):
 	infoGainValues, giveAwayValues = calculateStatistics(clues, ownCode)
-	if(infoGainValues==None and giveAwayValues==None):
+	if(infoGainValues==None and giveAwayValues==None): # TODO giveAwayValues will be provided
 		return chooseRandomCode()
 	# infoGainValues consists of list of colorCodes with expected number of eligible codes left (lower number is more potential info gain)
 	# giveAwayValues consists of a same list, but then eligible codes FOR THE OPPONENT left (lower number is more potential info giveaway)
