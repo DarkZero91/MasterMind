@@ -92,6 +92,7 @@ def selectParent(chances, value):
 		# if total value becomes bigger than randomly selected number, return index 
 		if(tot >= value):
 			return x
+	print("Error: no parent selected")
     
 
 # apply cross over between two parents
@@ -139,15 +140,17 @@ def inversion(code):
 	return newCode
 
 # create a new generation of codes based on the fitnesses of the codes in the current generation
-def developNewGeneration(currentGeneration, fitnesses):
+def developNewGeneration(currentGeneration, fitnesses, clues, b):
 	maxSize = len(currentGeneration)
 	onePCrossOverProb = 0.5
 	mutationProb = 0.03
 	permutationProb = 0.03
 	inversionProb = 0.02
 	# calculate selection chances based on fitnesses
-	totFitness = sum(fitnesses)
-	selectionChances = [float(x)/totFitness for x in fitnesses] #problem: high fitness is bad, but now gets higher chance to be chosen
+	constantTerm = b*4*(max((len(clues)-1),0))
+	selectionFitnesses = [abs(x-(max(fitnesses)-constantTerm)) for x in fitnesses] # lowe fitness needs high selection chance.
+	totFitness = sum(selectionFitnesses)
+	selectionChances = [float(x)/totFitness for x in selectionFitnesses]
 	newGeneration = []
 	while(len(newGeneration)<maxSize):
 		# use crossover to generate a new code
@@ -171,7 +174,7 @@ def developNewGeneration(currentGeneration, fitnesses):
 
 # calculate the fitness value of each code in the population, using the given clues (codes+feedback) and the parameters/weights a and b
 def calculateFitness(population, clues, a, b, ownCode):
-	constantPart = b*4*(len(clues)-1) # b * number of colors in the code * (number of clues-1)
+	constantPart = max(0, b*4*(len(clues)-1)) # b * number of colors in the code * (number of clues-1)
 	fitnesses = [constantPart] * len(population)
 	for x in range(len(population)):
 		for cl in clues:
@@ -243,9 +246,9 @@ def geneticAlgorithm(clues, ownCode, a, b):
 		# calculate fitnesses of the codes in the population
 		fitnesses = calculateFitness(population, clues, a, b, ownCode=ownCode)
 		# add codes with optimal fitness to the set of eligible codes
-		eligibleCodes = addSelectedCodes(eligibleCodes, population, fitnesses, optimalFitness=b*4*(len(clues)-1))
+		eligibleCodes = addSelectedCodes(eligibleCodes, population, fitnesses, optimalFitness=max(0, b*4*(len(clues)-1)))
 		if(len(eligibleCodes)<=maxsize): # if room for more codes in the set, develop a new generation
-			population = developNewGeneration(population, fitnesses)
+			population = developNewGeneration(population, fitnesses, clues, b)
 		generation += 1
 	return eligibleCodes
 
