@@ -12,7 +12,7 @@ class Clue(object):
 		self.myBlackPoints = myBlackPoints # number of black points about own code
 
 	def __eq__(self, other):
-		return self.colorCode==other.colorCode and self.whitePoints==other.whitePoints and self.blackPoints==other.blackPoints and self.myBlackPoints==other.myBlackPoints and self.myWhitePoints==other.myWhitePoints
+		return self.colorCode==other.colorCode and self.whitePoints==other.whitePoints and self.blackPoints==other.blackPoints and self.myBlackPoints==other.myBlackPoints and 				self.myWhitePoints==other.myWhitePoints
 
 	def __str__(self):
 		return "Colorcode: "+str(self.colorCode)+", whitePoints: "+str(self.whitePoints)+", blackPoints: "+str(self.blackPoints)
@@ -86,12 +86,13 @@ def generateNewPopulation(size):
 
 # select a code to act as a parent, using chances for each code and a randomly selected value between 0 and 1
 def selectParent(chances, value):
-	tot = 0
+	tot = 0.0
 	for x in range(len(chances)):
 		tot += chances[x]
 		# if total value becomes bigger than randomly selected number, return index 
 		if(tot >= value):
 			return x
+    
 
 # apply cross over between two parents
 def applyCrossOver(population, selectionChances, onePointCrossOverChance):
@@ -146,7 +147,7 @@ def developNewGeneration(currentGeneration, fitnesses):
 	inversionProb = 0.02
 	# calculate selection chances based on fitnesses
 	totFitness = sum(fitnesses)
-	selectionChances = [x/totFitness for x in fitnesses]
+	selectionChances = [float(x)/totFitness for x in fitnesses] #problem: high fitness is bad, but now gets higher chance to be chosen
 	newGeneration = []
 	while(len(newGeneration)<maxSize):
 		# use crossover to generate a new code
