@@ -252,8 +252,10 @@ def geneticAlgorithm(clues, ownCode, a, b):
 def calculateStatistics(clues, ownCode):
 	a = 2
 	b = 2
-	if(clues == []): # start with random guess -> TODO include giveaway values for EVERY(1296) possible code
-		return None, None
+	if(clues == []): # start. no clues yet: only return gievAwayValues for codes selected by genAlg
+		giveAwayCodes = geneticAlgorithm(clues, ownCode=True, a=a, b=b)
+		giveAwayValues = calculateGiveAwayValues(codes=giveAwayCodes, ownCode=ownCode, a=a, b=b)
+		return None, giveAwayValues
 	else:
 		# calculate estimated potential info gains
 		infoGainCodes = geneticAlgorithm(clues, ownCode=False, a=a, b=b)
@@ -264,17 +266,18 @@ def calculateStatistics(clues, ownCode):
 		return infoGainValues, giveAwayValues
 
 def chooseAttempt(clues, ownCode):
-	infoGainValues, giveAwayValues = calculateStatistics(clues, ownCode)
-	if(infoGainValues==None and giveAwayValues==None): # TODO giveAwayValues will be provided
-		return chooseRandomCode()
 	# infoGainValues consists of list of colorCodes with expected number of eligible codes left (lower number is more potential info gain)
 	# giveAwayValues consists of a same list, but then eligible codes FOR THE OPPONENT left (lower number is more potential info giveaway)
+	# cognitive model must decide what is best
+	infoGainValues, giveAwayValues = calculateStatistics(clues, ownCode)
+	if(infoGainValues==None): # no info yet (first attempt): only giveAwayValues are provided
+		# for now choose code with least info given away
+		codes, giveAways = zip(*giveAwayValues)
+		return codes[giveAways.index(max(giveAways))]
 
-	#cognitive model must decide what is best: for now, choose the one with most info gain for AI
+	#for now, choose the one with most info gain for AI
 	codes, infogains = zip(*infoGainValues)
 	return codes[infogains.index(min(infogains))]
-	# codes, giveAways = zip(*giveAwayValues)
-	# return codes[giveAways.index(max(giveAways))]
 
 
 def playGame(ownCode, opponentCode):
