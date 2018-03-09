@@ -120,9 +120,9 @@ def mutation(code):
 
 # swap the values at two random indices
 def permutation(code):
+	newCode = code
 	idxOne = random.randint(0,3)
 	idxTwo = random.randint(0,3)
-	newCode = code
 	newCode[idxOne], newCode[idxTwo] = newCode[idxTwo], newCode[idxOne]
 	return newCode
 
