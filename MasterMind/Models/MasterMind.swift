@@ -15,7 +15,7 @@ class MasterMind: NSObject {
     
     override init() {
         board = Board()
-        player1 = AI(name: "Vieze Freddy")
+        player1 = AI(name: "Dirty Dan")
         player2 = Player(name: "hooman")
     }
 }
