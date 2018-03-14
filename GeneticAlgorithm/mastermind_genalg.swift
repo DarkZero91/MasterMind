@@ -357,11 +357,11 @@ func geneticAlgorithm(clues:[Clue], ownCode:Bool, a:Int, b:Int) -> [[Int]] {
     var eligibleCodes = [[Int]]()
     var generation = 1
 	var population = generateNewPopulation(size:populationSize)
-    while generation <= maxgen && eligibleCodes.count <= maxsize {
+    while (generation <= maxgen && eligibleCodes.count <= maxsize) || eligibleCodes.count == 0 {
         //# calculate fitnesses of the codes in the population
 		let fitnesses = calculateFitness(population:population, clues:clues, a:a, b:b, ownCode:ownCode)
         //# add codes with optimal fitness to the set of eligible codes
-		eligibleCodes = addSelectedCodes(eligibleCodes:eligibleCodes, population:population, fitnesses:fitnesses, optimalFitness:Double(max(0, b*4*(clues.count-1))))
+		eligibleCodes = addSelectedCodes(eligibleCodes:eligibleCodes, population:population, fitnesses:fitnesses, optimalFitness:Double(max(0, b*5*(clues.count-1))))//optimalFitness:Double(max(0, b*4*(clues.count-1))))
         if(eligibleCodes.count <= maxsize){ //# if room for more codes in the set, develop a new generation
 			population = developNewGeneration(currentGeneration:population, fitnesses:fitnesses, clues:clues, b:b)
         }
