@@ -448,12 +448,12 @@ func playGame(ownCode:[Int], opponentCode:[Int], skillLevel:Double) -> Int {
 }
 
 
-let numrounds = 10
+let numrounds = 20
 let all_codes = initializePossibilityList()
 var results = [(Double, Double)]()
-for x in 1...10 {
+for x in 2...9 {
     var tot_attempts = 0
-    let skillLevel = 4.0+Double(x)/10.0
+    let skillLevel = 4.0+Double(x)/20.0
     print("Started games with skill level \(skillLevel)")
     for x in 1...numrounds {
         let oppCode = all_codes.random()
