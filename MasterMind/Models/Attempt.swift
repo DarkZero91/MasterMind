@@ -9,31 +9,57 @@
 import Foundation
 
 class Attempt: NSObject {
-    var code: [Int8]
-    var feedback1: Feedback
-    var feedback2: Feedback
-    var player: Player
+    var choice: [Character]
+    var player1_feedback: (black:Int, white:Int)?
+    var player2_feedback: (black:Int, white:Int)?
     
-    init(code: [Int8], feedback1: Feedback, feedback2: Feedback, player: Player) {
-        self.code = code
-        self.feedback1 = feedback1
-        self.feedback2 = feedback2
-        self.player = player
+    init(choice:[Character]) {
+        self.choice = choice
+        self.player1_feedback = nil
+        self.player2_feedback = nil
     }
     
-    func getCode() -> [Int8] {
-        return code
+    func getChoice() -> [Character] {
+        return choice
     }
     
-    func getFeedback1() -> Feedback {
-        return feedback1
+    func getPlayer1Feedback() -> (black:Int, white:Int) {
+        return player1_feedback!
+    }
+
+    func setPlayer1Feedback(player:Player) {
+        player1_feedback = evaluate(player:player)
     }
     
-    func getFeedback2() -> Feedback {
-        return feedback2
+    func getPlayer2Feedback() -> (black:Int, white:Int) {
+        return player2_feedback!
     }
-    
-    func getPlayer() -> Player {
-        return player
+
+    func setPlayer2Feedback(player:Player) {
+        player2_feedback = evaluate(player:player)
+    }
+
+    func evaluate(player:Player) -> (black:Int, white:Int) {
+        var white = 0
+        var black = 0
+        var hits = ["o","o","o","o"]
+        var code = player.getCode()
+
+        for x in 0...3 {
+            if choice[x] == code[x]{
+                black += 1
+                hits[x] = "x"
+            }
+        }
+
+        for x in 0...3{
+            if hits[x] != "x"{
+                if code.contains(choice[x]){
+                    white += 1
+                }
+            }
+        }
+
+        return (black, white)
     }
 }

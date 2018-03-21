@@ -16,7 +16,7 @@ class ViewController: UIViewController{
     }
     
     var fillButton = 0
-    var turn = 0
+    var game = MasterMind()
     
     @IBOutlet weak var upperText: UILabel!
     
