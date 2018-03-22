@@ -12,34 +12,52 @@ class ViewController: UIViewController{
     
     var widthMultiplier = 0.0
     var heightMultiplier = 0.0
+    var playerCode = [String]()
+    var fillButton = 0
+    var turn = 0
+    
+    @IBOutlet var allLabels: [UILabel]!
+    @IBOutlet var allButtons: [UIButton]!
+    @IBOutlet weak var upperText: UILabel!
+    @IBOutlet var Buttons: [UIButton]!
+    @IBOutlet var colorSelection: [UIButton]!
+    @IBOutlet weak var turnLabel: UILabel!
+    @IBOutlet var opponentEvals: [UILabel]!
+    @IBOutlet var playerEvals: [UILabel]!
+    @IBOutlet weak var codeLabel: UILabel!
+    @IBOutlet var playerCodeLabels: [UILabel]!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         widthMultiplier = Double(self.view.frame.size.width) / 375
         heightMultiplier = Double(self.view.frame.size.height) / 667
         scaleView(labels: allLabels)
-        scaleView(labels: playerEvals)
-        scaleView(labels: opponentEvals)
-        scaleView(buttons: Buttons)
-        scaleView(buttons: colorSelection)
         scaleView(buttons: allButtons)
-/*        for button in Buttons{
-            button.frame.size.width = button.frame.width * CGFloat(widthMultiplier)
-            button.frame.size.height = button.frame.height * CGFloat(heightMultiplier)
-            button.frame.origin = CGPoint(x: button.frame.origin.x * CGFloat(widthMultiplier), y: button.frame.origin.y * CGFloat(heightMultiplier))
-        }
-        upperText.frame.size.width = upperText.frame.width * CGFloat(widthMultiplier)
-        upperText.frame.size.height = upperText.frame.height * CGFloat(heightMultiplier)
-        upperText.frame.origin = CGPoint(x: upperText.frame.origin.x * CGFloat(widthMultiplier), y: upperText.frame.origin.y * CGFloat(heightMultiplier))*/
+        codeLabel.text = "Your code: \(playerCode)"
+        setCode()
     }
 
+    func setCode(){
+        for x in 0...3{
+            switch playerCode[x]{
+                case "r": playerCodeLabels[x].backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+                case "y": playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
+                case "g": playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1)
+                case "b": playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+                case "p": playerCodeLabels[x].backgroundColor = #colorLiteral(red: 1, green: 0.2527923882, blue: 1, alpha: 1)
+                case "w": playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
+                default: print("could not find code")
+            }
+        }
+    }
+    
     func scaleView(labels:[UILabel]!){
         for label in labels{
             label.frame.size.width = label.frame.width * CGFloat(widthMultiplier)
             label.frame.size.height = label.frame.height * CGFloat(heightMultiplier)
             label.frame.origin = CGPoint(x: label.frame.origin.x * CGFloat(widthMultiplier), y: label.frame.origin.y * CGFloat(heightMultiplier))
         }
-        
     }
     
     func scaleView(buttons:[UIButton]!){
@@ -53,31 +71,13 @@ class ViewController: UIViewController{
     }
     
     //width: 375.0 height: 667.0
-    var fillButton = 0
-    var turn = 0
-    
-    @IBOutlet var allLabels: [UILabel]!
-    
-    @IBOutlet var allButtons: [UIButton]!
-    
-    @IBOutlet weak var upperText: UILabel!
-    
-    @IBOutlet var Buttons: [UIButton]!
-    
-    @IBOutlet var colorSelection: [UIButton]!
-    
-    @IBOutlet weak var turnLabel: UILabel!
 
-    @IBOutlet var opponentEvals: [UILabel]!
-    
-    @IBOutlet var playerEvals: [UILabel]!
     
     @IBAction func fillColor(_ sender: UIButton) {
         for color in colorSelection{
             color.isHidden = false
         }
         fillButton = Buttons.index(of: sender)!
-        print("Button \(fillButton): \(Buttons[fillButton].frame.size.width) x \(Buttons[fillButton].frame.size.height)")
     }
     
     @IBAction func touchButton(_ sender: UIButton) {
@@ -134,7 +134,6 @@ class ViewController: UIViewController{
     
     func evaluate(){
         var code = ["r","r","r","b"] //static code for now
-        var playerCode = ["b","y","g","w"]
         var pwhite = 0
         var pblack = 0
         var owhite = 0
@@ -188,7 +187,6 @@ class ViewController: UIViewController{
         }
         
         //eval
-        print("Black: \(pblack) White: \(pwhite)")
         if pblack == 4{
             upperText.text = "You win"
         }
@@ -198,12 +196,12 @@ class ViewController: UIViewController{
     func color2code(ind:Int) -> String{
         //buttonColor = Buttons[ind].backgroundColor
         switch Buttons[ind].backgroundColor! {
-        case colorSelection[0].backgroundColor!: return "r"
-        case colorSelection[1].backgroundColor!: return "y"
-        case colorSelection[2].backgroundColor!: return "g"
-        case colorSelection[3].backgroundColor!: return "b"
-        case colorSelection[4].backgroundColor!: return "p"
-        case colorSelection[5].backgroundColor!: return "w"
+        case colorSelection[0].backgroundColor!: return colorSelection[0].currentTitle!
+        case colorSelection[1].backgroundColor!: return colorSelection[1].currentTitle!
+        case colorSelection[2].backgroundColor!: return colorSelection[2].currentTitle!
+        case colorSelection[3].backgroundColor!: return colorSelection[3].currentTitle!
+        case colorSelection[4].backgroundColor!: return colorSelection[4].currentTitle!
+        case colorSelection[5].backgroundColor!: return colorSelection[5].currentTitle!
         default: print("could not find color: \(Buttons[ind].backgroundColor!)"); return "e"
         }
     }
