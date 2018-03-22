@@ -10,18 +10,28 @@ import Foundation
 
 class Player: NSObject {
     var name:String = ""
+    var code:[Character]
     var score:Int8 = 0
     
-    init(name:String) {
+    init(name:String, code:[Character]) {
         self.name = name
+        self.code = code
     }
     
     func getname() -> String {
         return name
     }
 
-    func setName(name: String) {
+    func setName(name:String) {
         self.name = name
+    }
+
+    func getCode() -> [Character] {
+        return code
+    }
+
+    func setCode(code:[Character]) {
+        self.code = code
     }
 
     func getScore() -> Int8 {

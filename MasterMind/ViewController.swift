@@ -10,13 +10,55 @@ import UIKit
 
 class ViewController: UIViewController{
     
+    var widthMultiplier = 0.0
+    var heightMultiplier = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        widthMultiplier = Double(self.view.frame.size.width) / 375
+        heightMultiplier = Double(self.view.frame.size.height) / 667
+        scaleView(labels: allLabels)
+        scaleView(labels: playerEvals)
+        scaleView(labels: opponentEvals)
+        scaleView(buttons: Buttons)
+        scaleView(buttons: colorSelection)
+        scaleView(buttons: allButtons)
+/*        for button in Buttons{
+            button.frame.size.width = button.frame.width * CGFloat(widthMultiplier)
+            button.frame.size.height = button.frame.height * CGFloat(heightMultiplier)
+            button.frame.origin = CGPoint(x: button.frame.origin.x * CGFloat(widthMultiplier), y: button.frame.origin.y * CGFloat(heightMultiplier))
+        }
+        upperText.frame.size.width = upperText.frame.width * CGFloat(widthMultiplier)
+        upperText.frame.size.height = upperText.frame.height * CGFloat(heightMultiplier)
+        upperText.frame.origin = CGPoint(x: upperText.frame.origin.x * CGFloat(widthMultiplier), y: upperText.frame.origin.y * CGFloat(heightMultiplier))*/
+    }
+
+    func scaleView(labels:[UILabel]!){
+        for label in labels{
+            label.frame.size.width = label.frame.width * CGFloat(widthMultiplier)
+            label.frame.size.height = label.frame.height * CGFloat(heightMultiplier)
+            label.frame.origin = CGPoint(x: label.frame.origin.x * CGFloat(widthMultiplier), y: label.frame.origin.y * CGFloat(heightMultiplier))
+        }
         
     }
     
+    func scaleView(buttons:[UIButton]!){
+        for button in buttons{
+            button.frame.size.width = button.frame.width * CGFloat(widthMultiplier)
+            button.frame.size.height = button.frame.height * CGFloat(heightMultiplier)
+            button.frame.origin = CGPoint(x: button.frame.origin.x * CGFloat(widthMultiplier), y: button.frame.origin.y * CGFloat(heightMultiplier))
+            button.titleLabel?.minimumScaleFactor = 0.5
+            button.titleLabel?.adjustsFontSizeToFitWidth = true
+        }
+    }
+    
+    //width: 375.0 height: 667.0
     var fillButton = 0
     var turn = 0
+    
+    @IBOutlet var allLabels: [UILabel]!
+    
+    @IBOutlet var allButtons: [UIButton]!
     
     @IBOutlet weak var upperText: UILabel!
     
@@ -26,6 +68,8 @@ class ViewController: UIViewController{
     
     @IBOutlet weak var turnLabel: UILabel!
 
+    @IBOutlet var opponentEvals: [UILabel]!
+    
     @IBOutlet var playerEvals: [UILabel]!
     
     @IBAction func fillColor(_ sender: UIButton) {
@@ -33,7 +77,7 @@ class ViewController: UIViewController{
             color.isHidden = false
         }
         fillButton = Buttons.index(of: sender)!
-        print("Button \(fillButton) pressed")
+        print("Button \(fillButton): \(Buttons[fillButton].frame.size.width) x \(Buttons[fillButton].frame.size.height)")
     }
     
     @IBAction func touchButton(_ sender: UIButton) {
@@ -90,26 +134,29 @@ class ViewController: UIViewController{
     
     func evaluate(){
         var code = ["r","r","r","b"] //static code for now
-        var white = 0
-        var black = 0
+        var playerCode = ["b","y","g","w"]
+        var pwhite = 0
+        var pblack = 0
+        var owhite = 0
+        var oblack = 0
         var choice = ["r","r","r","r"]
         
+        //opponentEval
         for x in 0...3{
             Buttons[x + (4*turn)].isEnabled = false
             choice[x] = color2code(ind: x+(4*turn))
             if choice[x] == code[x]{
-                black += 1
+                pblack += 1
                 playerEvals[turn].text?.append("⚫️")
                 code[x] = "done"
                 choice[x] = "done"
             }
         }
-        //rrrb - rbrr
-        //0r0b - 0b0r
+
         for x in 0...3{
             if choice[x] != "done"{
                 if code.contains(choice[x]){
-                    white += 1
+                    pwhite += 1
                     playerEvals[turn].text?.append("⚪️")
                     code[code.index(of: choice[x])!] = "done"
                     choice[x] = "done"
@@ -117,8 +164,32 @@ class ViewController: UIViewController{
             }
         }
         
-        print("Black: \(black) White: \(white)")
-        if black == 4{
+        //playerEval
+        for x in 0...3{
+            Buttons[x + (4*turn)].isEnabled = false
+            choice[x] = color2code(ind: x+(4*turn))
+            if choice[x] == playerCode[x]{
+                oblack += 1
+                opponentEvals[turn].text?.append("⚫️")
+                playerCode[x] = "done"
+                choice[x] = "done"
+            }
+        }
+        
+        for x in 0...3{
+            if choice[x] != "done"{
+                if playerCode.contains(choice[x]){
+                    owhite += 1
+                    opponentEvals[turn].text?.append("⚪️")
+                    playerCode[playerCode.index(of: choice[x])!] = "done"
+                    choice[x] = "done"
+                }
+            }
+        }
+        
+        //eval
+        print("Black: \(pblack) White: \(pwhite)")
+        if pblack == 4{
             upperText.text = "You win"
         }
         
