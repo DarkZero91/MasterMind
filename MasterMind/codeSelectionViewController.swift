@@ -19,12 +19,16 @@ class codeSelectionViewController: UIViewController {
     @IBOutlet var colorButtons: [UIButton]!
     @IBOutlet var allButtons: [UIButton]!
     @IBOutlet var confirmButton: UIButton!
+    @IBOutlet var allLabels: [UILabel]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         widthMultiplier = Double(self.view.frame.size.width) / 375
         heightMultiplier = Double(self.view.frame.size.height) / 667
         scaleView(buttons: allButtons)
+        scaleView(labels: allLabels)
+        circleButtons(buttons: codeButtons)
+        circleButtons(buttons: colorButtons)
         // Do any additional setup after loading the view.
     }
 
@@ -48,6 +52,13 @@ class codeSelectionViewController: UIViewController {
             button.frame.origin = CGPoint(x: button.frame.origin.x * CGFloat(widthMultiplier), y: button.frame.origin.y * CGFloat(heightMultiplier))
             button.titleLabel?.minimumScaleFactor = 0.5
             button.titleLabel?.adjustsFontSizeToFitWidth = true
+        }
+    }
+    
+    func circleButtons(buttons:[UIButton]!){
+        for button in buttons{
+            button.layer.cornerRadius = (button.frame.width)/2
+            button.clipsToBounds = true
         }
     }
     
