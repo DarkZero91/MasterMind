@@ -27,6 +27,7 @@ class ViewController: UIViewController{
     @IBOutlet var playerEvals: [UILabel]!
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet var playerCodeLabels: [UILabel]!
+    @IBOutlet weak var confirmButton: UIButton!
     
     
     override func viewDidLoad() {
@@ -70,9 +71,6 @@ class ViewController: UIViewController{
         }
     }
     
-    //width: 375.0 height: 667.0
-
-    
     @IBAction func fillColor(_ sender: UIButton) {
         for color in colorSelection{
             color.isHidden = false
@@ -83,14 +81,6 @@ class ViewController: UIViewController{
     @IBAction func touchButton(_ sender: UIButton) {
         let currentButton = colorSelection.index(of: sender)!
         Buttons[fillButton].backgroundColor = colorSelection[currentButton].backgroundColor
-        /* if (counter == 3){
-            counter = 0
-            turn += 1
-        }
-        else{
-            counter += 1
-        }*/
-        //turnLabel.text = "Turn: \(turn)"
         for color in colorSelection{
             color.isHidden = true
         }
@@ -99,26 +89,25 @@ class ViewController: UIViewController{
     @IBAction func confirmChoice(_ sender: Any) {
         var turnDone = true
         for x in 0...3{
-            //print("checking button: \(x+(4*turn)) ")
             if Buttons[x + (4*turn)].backgroundColor == #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1){
                 turnDone = false
                 //print("Button \(x+(4*turn)) has not been set")
             }
         }
         if turnDone{
-            checkCode()
-            
-
-            print("turn is over")
+            if upperText.text != "You win" && upperText.text != "You lose"{
+                checkCode()
+            }
+            //print("turn is over")
         }
         else{
-            print("turn not done yet")
+            //print("turn not done yet")
         }
     }
     
     func checkCode(){
         evaluate()
-        if upperText.text != "You win"{
+        if upperText.text != "You win" && upperText.text != "You lose"{
             turn += 1
             turnLabel.text = "Turn: \(turn+1)"
             if turn < 8{
@@ -128,18 +117,20 @@ class ViewController: UIViewController{
             }
             else{
                 upperText.text = "You lose"
+                confirmButton.isHidden = true
             }
         }
     }
     
     func evaluate(){
-        var code = opponentCode //static code for now
+        var code = opponentCode
         var pCode = playerCode
         var pwhite = 0
         var pblack = 0
         var owhite = 0
         var oblack = 0
         var choice = [String]()
+        
         //opponentEval
         for x in 0...3{
             Buttons[x + (4*turn)].isEnabled = false
@@ -189,6 +180,11 @@ class ViewController: UIViewController{
         //eval
         if pblack == 4{
             upperText.text = "You win"
+            confirmButton.isHidden = true
+        }
+        if oblack == 4{
+            upperText.text = "You lose"
+            confirmButton.isHidden = true
         }
         
     }
@@ -224,6 +220,7 @@ class ViewController: UIViewController{
         }
         turnLabel.text = "Turn: 1"
         upperText.text = "Your turn"
+        confirmButton.isHidden = false
     }
     
     //TODO: confirmation pins

@@ -529,6 +529,7 @@
                     </view>
                     <connections>
                         <outlet property="codeLabel" destination="jO2-di-6bi" id="JEY-VH-Q7I"/>
+                        <outlet property="confirmButton" destination="KC1-jT-Mdw" id="jAm-QQ-nzP"/>
                         <outlet property="turnLabel" destination="FgL-xO-tZn" id="lNg-Dz-If2"/>
                         <outlet property="upperText" destination="0nf-BQ-f7p" id="RRS-cB-dKu"/>
                         <outletCollection property="Buttons" destination="V2q-R6-iof" collectionClass="NSMutableArray" id="vMg-IF-Bgj"/>
