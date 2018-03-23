@@ -254,7 +254,7 @@
                                 <rect key="frame" x="29" y="580" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.039477333291645933" blue="0.058402586993537731" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="r">
+                                <state key="normal" title="1">
                                     <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -265,7 +265,7 @@
                                 <rect key="frame" x="83" y="580" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.99896607137882398" green="1" blue="0.062815346880651379" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="y">
+                                <state key="normal" title="2">
                                     <color key="titleColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -276,7 +276,7 @@
                                 <rect key="frame" x="137" y="580" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.017310738929162905" green="1" blue="0.040202526501128655" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="g">
+                                <state key="normal" title="3">
                                     <color key="titleColor" red="0.0" green="0.97680455450000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -287,7 +287,7 @@
                                 <rect key="frame" x="191" y="580" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="b">
+                                <state key="normal" title="4">
                                     <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -298,7 +298,7 @@
                                 <rect key="frame" x="245" y="580" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="1" green="0.2527923882" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="p">
+                                <state key="normal" title="5">
                                     <color key="titleColor" red="1" green="0.2527923882" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -309,7 +309,7 @@
                                 <rect key="frame" x="299" y="580" width="46" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" red="0.9811700465455826" green="1" blue="0.99735200949758818" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="w">
+                                <state key="normal" title="6">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>

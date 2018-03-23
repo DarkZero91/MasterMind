@@ -12,7 +12,7 @@ class codeSelectionViewController: UIViewController {
 
     var widthMultiplier = 0.0
     var heightMultiplier = 0.0
-    var code = ["r","r","r","r"]
+    var code = [0,0,0,0]
     var fillButton = 0
     
     @IBOutlet var codeButtons: [UIButton]!
@@ -57,10 +57,10 @@ class codeSelectionViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let mainController = segue.destination as! ViewController
-        for x in 0...3{
+        for x in 0...3 {
             code[x] = color2code(ind: x)
         }
-        mainController.playerCode = code
+		mainController.game.player2.code = code
     }
     
     @IBAction func fillColor(_ sender: UIButton) {
@@ -92,16 +92,16 @@ class codeSelectionViewController: UIViewController {
         return true
     }
     
-    func color2code(ind:Int) -> String{
+    func color2code(ind:Int) -> Int{
         //buttonColor = Buttons[ind].backgroundColor
         switch codeButtons[ind].backgroundColor! {
-        case colorButtons[0].backgroundColor!: return colorButtons[0].currentTitle!
-        case colorButtons[1].backgroundColor!: return colorButtons[1].currentTitle!
-        case colorButtons[2].backgroundColor!: return colorButtons[2].currentTitle!
-        case colorButtons[3].backgroundColor!: return colorButtons[3].currentTitle!
-        case colorButtons[4].backgroundColor!: return colorButtons[4].currentTitle!
-        case colorButtons[5].backgroundColor!: return colorButtons[5].currentTitle!
-        default: print("could not find color: \(codeButtons[ind].backgroundColor!)"); return "e"
+        case colorButtons[0].backgroundColor!: return 1
+        case colorButtons[1].backgroundColor!: return 2
+        case colorButtons[2].backgroundColor!: return 3
+        case colorButtons[3].backgroundColor!: return 4
+        case colorButtons[4].backgroundColor!: return 5
+        case colorButtons[5].backgroundColor!: return 6
+        default: print("could not find color: \(codeButtons[ind].backgroundColor!)"); return 0
         }
     }
 

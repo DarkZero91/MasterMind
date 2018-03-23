@@ -15,15 +15,15 @@ class MasterMind: NSObject {
     var attempts: [Attempt] = []
 
     override init() {
-        player1 = AI(name: "Dirty Dan", code: ["r","r","y","r"])
-        player2 = Player(name: "hooman", code: ["y","g","y","r"])
+        player1 = AI(name: "Dirty Dan", code: [1,1,2,1])
+        player2 = Player(name: "hooman", code: [])
         player_turn = player1
     }
 
     //---------------------------- API START
 
     // Submits the players attempt
-    func checkCode(choice:[Character]) -> Attempt {
+    func checkCode(choice:[Int]) -> Attempt {
         let attempt = Attempt(choice:choice)
         attempt.setPlayer1Feedback(player:self.player1)
         attempt.setPlayer2Feedback(player:self.player2)

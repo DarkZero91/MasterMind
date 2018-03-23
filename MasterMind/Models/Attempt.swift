@@ -9,17 +9,18 @@
 import Foundation
 
 class Attempt: NSObject {
-    var choice: [Character]
+    var choice: [Int]
     var player1_feedback: (black:Int, white:Int)?
     var player2_feedback: (black:Int, white:Int)?
     
-    init(choice:[Character]) {
+    init(choice:[Int]) {
+		print("Choice: \(choice)")
         self.choice = choice
         self.player1_feedback = nil
         self.player2_feedback = nil
     }
     
-    func getChoice() -> [Character] {
+    func getChoice() -> [Int] {
         return choice
     }
     
@@ -42,24 +43,25 @@ class Attempt: NSObject {
     func evaluate(player:Player) -> (black:Int, white:Int) {
         var white = 0
         var black = 0
-        var hits = ["o","o","o","o"]
-        var code = player.getCode()
+        let code = player.getCode()
+		// make sure copies are modified
+		var chosen = choice
+		var copyCode = code
 
         for x in 0...3 {
-            if choice[x] == code[x]{
+            if chosen[x] == copyCode[x]{
                 black += 1
-                hits[x] = "x"
+				chosen[x] = 0
+				copyCode[x] = 0
             }
         }
 
-        for x in 0...3{
-            if hits[x] != "x"{
-                if code.contains(choice[x]){
-                    white += 1
-                }
-            }
+        for x in 0...3 {
+			if let i = copyCode.index(of: chosen[x]), chosen[x] != 0 {
+				white += 1
+				copyCode[i] = 0
+			}
         }
-
         return (black, white)
     }
 }

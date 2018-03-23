@@ -12,10 +12,8 @@ class ViewController: UIViewController{
     
     var widthMultiplier = 0.0
     var heightMultiplier = 0.0
-    var playerCode = [String]()
-    var opponentCode = ["r","r","r","b"] //[String]()
     var fillButton = 0
-    var turn = 0
+	var game = MasterMind()
     
     @IBOutlet var allLabels: [UILabel]!
     @IBOutlet var allButtons: [UIButton]!
@@ -36,18 +34,20 @@ class ViewController: UIViewController{
         heightMultiplier = Double(self.view.frame.size.height) / 667
         scaleView(labels: allLabels)
         scaleView(buttons: allButtons)
+		confirmButton.isHidden = true
         setCode()
     }
 
     func setCode(){
+		let code = game.player2.code
         for x in 0...3{
-            switch playerCode[x]{
-                case "r": playerCodeLabels[x].backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
-                case "y": playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
-                case "g": playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1)
-                case "b": playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
-                case "p": playerCodeLabels[x].backgroundColor = #colorLiteral(red: 1, green: 0.2527923882, blue: 1, alpha: 1)
-                case "w": playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
+            switch code[x]{
+                case 1: playerCodeLabels[x].backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+                case 2: playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
+                case 3: playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1)
+                case 4: playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+                case 5: playerCodeLabels[x].backgroundColor = #colorLiteral(red: 1, green: 0.2527923882, blue: 1, alpha: 1)
+                case 6: playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
                 default: print("could not find code")
             }
         }
@@ -84,134 +84,100 @@ class ViewController: UIViewController{
         for color in colorSelection{
             color.isHidden = true
         }
+		if(completeCode()){
+			// code is completed: confirm button can be shown
+			confirmButton.isHidden = false
+		}
     }
-    
+	
+	// checks if all places in the code are filled with a color
+	func completeCode() -> Bool {
+		let turn = game.getTurn() - 1
+		for x in 0...3 {
+			if Buttons[x + (4*turn)].backgroundColor == #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1){
+				return false
+			}
+		}
+		return true
+	}
+	
     @IBAction func confirmChoice(_ sender: Any) {
-        var turnDone = true
+		var selectedCode = [Int]()
+		let turn = game.getTurn() - 1
+		// generate selected code as Int array
         for x in 0...3{
-            if Buttons[x + (4*turn)].backgroundColor == #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1){
-                turnDone = false
-                //print("Button \(x+(4*turn)) has not been set")
-            }
+            selectedCode.append(color2code(ind: x + (4*turn)))
         }
-        if turnDone{
-            if upperText.text != "You win" && upperText.text != "You lose"{
-                checkCode()
-            }
-            //print("turn is over")
-        }
-        else{
-            //print("turn not done yet")
-        }
+		// evaluate and draw feedbacks
+		
+		let attempt = game.checkCode(choice: selectedCode)
+		drawFeedbacks(attempt: attempt)
+		if upperText.text != "You win" && upperText.text != "You lose"{
+			checkWinner()
+		}
+		confirmButton.isHidden = true
     }
     
-    func checkCode(){
-        evaluate()
+    func checkWinner(){
+		let turn = game.getTurn() - 1
         if upperText.text != "You win" && upperText.text != "You lose"{
-            turn += 1
             turnLabel.text = "Turn: \(turn+1)"
-            if turn < 8{
+            if turn < 7{
                 for x in 0...3{
                     Buttons[x + (4*turn)].isHidden = false
                 }
-            }
-            else{
+            } else{
                 upperText.text = "You lose"
                 confirmButton.isHidden = true
             }
         }
     }
     
-    func evaluate(){
-        var code = opponentCode
-        var pCode = playerCode
-        var pwhite = 0
-        var pblack = 0
-        var owhite = 0
-        var oblack = 0
-        var choice = [String]()
-        
-        //opponentEval
-        for x in 0...3{
-            Buttons[x + (4*turn)].isEnabled = false
-            choice.append(color2code(ind: x+(4*turn)))
-            if choice[x] == code[x]{
-                pblack += 1
-                playerEvals[turn].text?.append("⚫️")
-                code[x] = "done"
-                choice[x] = "done"
-            }
-        }
-
-        for x in 0...3{
-            if choice[x] != "done"{
-                if code.contains(choice[x]){
-                    pwhite += 1
-                    playerEvals[turn].text?.append("⚪️")
-                    code[code.index(of: choice[x])!] = "done"
-                    choice[x] = "done"
-                }
-            }
-        }
-        
-        //playerEval
-        for x in 0...3{
-            Buttons[x + (4*turn)].isEnabled = false
-            choice[x] = color2code(ind: x+(4*turn))
-            if choice[x] == playerCode[x]{
-                oblack += 1
-                opponentEvals[turn].text?.append("⚫️")
-                pCode[x] = "done"
-                choice[x] = "done"
-            }
-        }
-        
-        for x in 0...3{
-            if choice[x] != "done"{
-                if playerCode.contains(choice[x]){
-                    owhite += 1
-                    opponentEvals[turn].text?.append("⚪️")
-                    pCode[playerCode.index(of: choice[x])!] = "done"
-                    choice[x] = "done"
-                }
-            }
-        }
-        
-        //eval
-        if pblack == 4{
+	func drawFeedbacks(attempt:Attempt){
+		let turn = game.getTurn() - 2
+		let (p1Black, p1White) = attempt.getPlayer1Feedback()
+		opponentEvals[turn].text? = "" // make sure start with empty string
+		opponentEvals[turn].text?.append(String(repeating: "⚫️", count: p1Black))
+		opponentEvals[turn].text?.append(String(repeating: "⚪️", count: p1White))
+		let (p2Black, p2White) = attempt.getPlayer2Feedback()
+		playerEvals[turn].text? = "" // make sure start with empty string
+		playerEvals[turn].text?.append(String(repeating: "⚫️", count: p2Black))
+		playerEvals[turn].text?.append(String(repeating: "⚪️", count: p2White))
+		
+        //is there a winner?
+        if p1Black == 4{
             upperText.text = "You win"
             confirmButton.isHidden = true
         }
-        if oblack == 4{
+        if p2Black == 4{
             upperText.text = "You lose"
             confirmButton.isHidden = true
         }
         
     }
     
-    func color2code(ind:Int) -> String{
+    func color2code(ind:Int) -> Int{
         //buttonColor = Buttons[ind].backgroundColor
         switch Buttons[ind].backgroundColor! {
-        case colorSelection[0].backgroundColor!: return colorSelection[0].currentTitle!
-        case colorSelection[1].backgroundColor!: return colorSelection[1].currentTitle!
-        case colorSelection[2].backgroundColor!: return colorSelection[2].currentTitle!
-        case colorSelection[3].backgroundColor!: return colorSelection[3].currentTitle!
-        case colorSelection[4].backgroundColor!: return colorSelection[4].currentTitle!
-        case colorSelection[5].backgroundColor!: return colorSelection[5].currentTitle!
-        default: print("could not find color: \(Buttons[ind].backgroundColor!)"); return "e"
+        case colorSelection[0].backgroundColor!: return 1
+        case colorSelection[1].backgroundColor!: return 2
+        case colorSelection[2].backgroundColor!: return 3
+        case colorSelection[3].backgroundColor!: return 4
+        case colorSelection[4].backgroundColor!: return 5
+        case colorSelection[5].backgroundColor!: return 6
+        default: print("could not find color: \(Buttons[ind].backgroundColor!)"); return 0
         }
     }
 
     
     @IBAction func reset(_ sender: Any) {
-        turn = 0
-        for x in 0...(Buttons.endIndex-1){
+		game = MasterMind() // create new empty game
+        for x in 0...(Buttons.endIndex-1) {
             Buttons[x].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             Buttons[x].isEnabled = true
             if x > 3{
                 Buttons[x].isHidden = true
-            }
-            else{
+            } else {
                 Buttons[x].isHidden = false
             }
         }
