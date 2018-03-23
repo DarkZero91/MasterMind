@@ -73,14 +73,6 @@ class codeSelectionViewController: UIViewController {
     @IBAction func touchButton(_ sender: UIButton) {
         let currentButton = colorButtons.index(of: sender)!
         codeButtons[fillButton].backgroundColor = colorButtons[currentButton].backgroundColor
-        /* if (counter == 3){
-         counter = 0
-         turn += 1
-         }
-         else{
-         counter += 1
-         }*/
-        //turnLabel.text = "Turn: \(turn)"
         for color in colorButtons{
             color.isHidden = true
         }

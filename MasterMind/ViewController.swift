@@ -13,6 +13,7 @@ class ViewController: UIViewController{
     var widthMultiplier = 0.0
     var heightMultiplier = 0.0
     var playerCode = [String]()
+    var opponentCode = ["r","r","r","b"] //[String]()
     var fillButton = 0
     var turn = 0
     
@@ -34,7 +35,6 @@ class ViewController: UIViewController{
         heightMultiplier = Double(self.view.frame.size.height) / 667
         scaleView(labels: allLabels)
         scaleView(buttons: allButtons)
-        codeLabel.text = "Your code: \(playerCode)"
         setCode()
     }
 
@@ -133,17 +133,17 @@ class ViewController: UIViewController{
     }
     
     func evaluate(){
-        var code = ["r","r","r","b"] //static code for now
+        var code = opponentCode //static code for now
+        var pCode = playerCode
         var pwhite = 0
         var pblack = 0
         var owhite = 0
         var oblack = 0
-        var choice = ["r","r","r","r"]
-        
+        var choice = [String]()
         //opponentEval
         for x in 0...3{
             Buttons[x + (4*turn)].isEnabled = false
-            choice[x] = color2code(ind: x+(4*turn))
+            choice.append(color2code(ind: x+(4*turn)))
             if choice[x] == code[x]{
                 pblack += 1
                 playerEvals[turn].text?.append("⚫️")
@@ -170,7 +170,7 @@ class ViewController: UIViewController{
             if choice[x] == playerCode[x]{
                 oblack += 1
                 opponentEvals[turn].text?.append("⚫️")
-                playerCode[x] = "done"
+                pCode[x] = "done"
                 choice[x] = "done"
             }
         }
@@ -180,7 +180,7 @@ class ViewController: UIViewController{
                 if playerCode.contains(choice[x]){
                     owhite += 1
                     opponentEvals[turn].text?.append("⚪️")
-                    playerCode[playerCode.index(of: choice[x])!] = "done"
+                    pCode[playerCode.index(of: choice[x])!] = "done"
                     choice[x] = "done"
                 }
             }
