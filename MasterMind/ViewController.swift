@@ -36,7 +36,11 @@ class ViewController: UIViewController{
         heightMultiplier = Double(self.view.frame.size.height) / 667
         scaleView(labels: allLabels)
         scaleView(buttons: allButtons)
+        circleButtons(buttons: Buttons)
+        circleButtons(buttons: colorSelection)
+        circleButtons(labels: playerCodeLabels)
         setCode()
+
     }
 
     func setCode(){
@@ -68,6 +72,20 @@ class ViewController: UIViewController{
             button.frame.origin = CGPoint(x: button.frame.origin.x * CGFloat(widthMultiplier), y: button.frame.origin.y * CGFloat(heightMultiplier))
             button.titleLabel?.minimumScaleFactor = 0.5
             button.titleLabel?.adjustsFontSizeToFitWidth = true
+        }
+    }
+    
+    func circleButtons(buttons:[UIButton]!){
+        for button in buttons{
+            button.layer.cornerRadius = (button.frame.width)/2
+            button.clipsToBounds = true
+        }
+    }
+    
+    func circleButtons(labels:[UILabel]!){
+        for label in labels{
+            label.layer.cornerRadius = (label.frame.width)/2
+            label.clipsToBounds = true
         }
     }
     
