@@ -199,7 +199,7 @@ func applyCrossOver(population:[[Int]], selectionChances:[Double], onePointCross
 func mutation(code:[Int]) -> [Int] {
     var newCode = code
     let idx = Int(arc4random_uniform(4))
-    newCode[idx] = Int(arc4random_uniform(5))
+    newCode[idx] = Int(arc4random_uniform(5)+1)
     return newCode
 }
 
@@ -289,15 +289,26 @@ func calculateFitness(population:[[Int]], clues:[Clue], a:Int, b:Int, ownCode:Bo
     return fitnesses
 }
 
+func previousGuess(guess:[Int], clues:[Clue]) -> Bool {
+    for cl in clues {
+        if cl.colorCode==guess {
+            return true
+        }
+    }
+    return false
+}
+
 //# add codes from the population to the set of selected codes. Only adds codes that have a fitness of maximum "optimalFitness"
-func addSelectedCodes(eligibleCodes:[[Int]], population:[[Int]], fitnesses:[Double], optimalFitness:Double) -> [[Int]] {
+func addSelectedCodes(eligibleCodes:[[Int]], population:[[Int]], fitnesses:[Double], optimalFitness:Double, clues:[Clue]) -> [[Int]] {
     var out = eligibleCodes
     if(population.count != fitnesses.count){
         print("Error: array length mismatch between population and fitnesses in addSelectedCodes")
     }
     for x in 0...fitnesses.count-1 {
 		if(fitnesses[x] <= optimalFitness && out.map{$0 == population[x]}.contains(true) == false) {
-            out.append(population[x])
+            if(previousGuess(guess:population[x], clues:clues)==false) {
+                out.append(population[x])
+            }
 		}
     }
     return out
@@ -349,19 +360,20 @@ func calculateGiveAwayValues(codes:[[Int]], ownCode:[Int], a:Int, b:Int) -> [([I
     return Array(zip(codes, giveAwayValues))
 }
 
-func geneticAlgorithm(clues:[Clue], ownCode:Bool, a:Int, b:Int) -> [[Int]] {
+func geneticAlgorithm(clues:[Clue], ownCode:Bool, a:Int, b:Int, skillLevel:Double) -> [[Int]] {
     //# initialize genetic algorithm
     let maxgen = 100
-    let maxsize = 60
+    let maxsize = 10//Int(floor(60.0/Double(skillLevel*2)))//60
     let populationSize = 150
     var eligibleCodes = [[Int]]()
     var generation = 1
 	var population = generateNewPopulation(size:populationSize)
-    while generation <= maxgen && eligibleCodes.count <= maxsize {
+    while (generation <= maxgen && eligibleCodes.count <= maxsize) || eligibleCodes.count == 0 {
         //# calculate fitnesses of the codes in the population
 		let fitnesses = calculateFitness(population:population, clues:clues, a:a, b:b, ownCode:ownCode)
         //# add codes with optimal fitness to the set of eligible codes
-		eligibleCodes = addSelectedCodes(eligibleCodes:eligibleCodes, population:population, fitnesses:fitnesses, optimalFitness:Double(max(0, b*4*(clues.count-1))))
+        let optimalFitness = Double(max(0, Double(b)*skillLevel*Double((clues.count-1))))
+        eligibleCodes = addSelectedCodes(eligibleCodes:eligibleCodes, population:population, fitnesses:fitnesses, optimalFitness:optimalFitness, clues:clues)
         if(eligibleCodes.count <= maxsize){ //# if room for more codes in the set, develop a new generation
 			population = developNewGeneration(currentGeneration:population, fitnesses:fitnesses, clues:clues, b:b)
         }
@@ -370,33 +382,33 @@ func geneticAlgorithm(clues:[Clue], ownCode:Bool, a:Int, b:Int) -> [[Int]] {
     return eligibleCodes
 }
 
-func calculateStatistics(clues:[Clue], ownCode:[Int]) -> ([([Int], Double)]?, [([Int], Double)]){ // not sure about return type (tuple of lists of tuples, both lists of list of integers and doubles)
+func calculateStatistics(clues:[Clue], ownCode:[Int], skillLevel:Double) -> ([([Int], Double)]?, [([Int], Double)]){ // not sure about return type (tuple of lists of tuples, both lists of list of integers and doubles)
     let a = 2
     let b = 2
 	if(clues.count==0){ //# start. no clues yet: only return giveAwayValues for codes selected by genAlg
-		let giveAwayCodes = geneticAlgorithm(clues:clues, ownCode:true, a:a, b:b)
+        let giveAwayCodes = geneticAlgorithm(clues:clues, ownCode:true, a:a, b:b, skillLevel:skillLevel)
 		let giveAwayValues = calculateGiveAwayValues(codes:giveAwayCodes, ownCode:ownCode, a:a, b:b)
         return (nil, giveAwayValues)
     } else {
         //# calculate estimated potential info gains
-		let infoGainCodes = geneticAlgorithm(clues:clues, ownCode:false, a:a, b:b)
+        let infoGainCodes = geneticAlgorithm(clues:clues, ownCode:false, a:a, b:b, skillLevel:skillLevel)
 		if(infoGainCodes.count == 0){
 			print("Error, no codes were found by the genetic algorithm!")
 		}
 		let infoGainValues = calculateSelectionValues(codes:infoGainCodes, a:a, b:b)
         //# calculate estimated potential info given away
-		let giveAwayCodes = geneticAlgorithm(clues:clues, ownCode:true, a:a, b:b)
+        let giveAwayCodes = geneticAlgorithm(clues:clues, ownCode:true, a:a, b:b, skillLevel:skillLevel)
 		let giveAwayValues = calculateGiveAwayValues(codes:giveAwayCodes, ownCode:ownCode, a:a, b:b)
         return (infoGainValues, giveAwayValues)
     }
 }
 
-func chooseAttempt(clues:[Clue], ownCode:[Int]) -> [Int]{
+func chooseAttempt(clues:[Clue], ownCode:[Int], skillLevel:Double) -> [Int]{
     //# infoGainValues consists of list of colorCodes with expected number of eligible codes left (lower number is more potential info gain)
     //# giveAwayValues consists of a same list, but then eligible codes FOR THE OPPONENT left (lower number is more potential info giveaway)
 
     //#cognitive model must decide what is best
-	let (infoGainValues, giveAwayValues) = calculateStatistics(clues:clues, ownCode:ownCode)
+    let (infoGainValues, giveAwayValues) = calculateStatistics(clues:clues, ownCode:ownCode, skillLevel:skillLevel)
 	if(infoGainValues == nil){ // no info yet (first attempt): only giveAwayValues are provided
 		// for now choose code with least info given away
 		let (codes, giveAways) = unzip(giveAwayValues)
@@ -420,15 +432,15 @@ func chooseAttempt(clues:[Clue], ownCode:[Int]) -> [Int]{
 }
 
 
-func playGame(ownCode:[Int], opponentCode:[Int]) -> Int {
+func playGame(ownCode:[Int], opponentCode:[Int], skillLevel:Double) -> Int {
     var clues = [Clue]()
     var attempts = 1
-	var attempt = chooseAttempt(clues:clues, ownCode:ownCode)
+    var attempt = chooseAttempt(clues:clues, ownCode:ownCode, skillLevel:skillLevel)
 	print("Code attempted: \(attempt)")
 	clues.append(generateClue(att:attempt, colorCode:opponentCode, ownColorCode:ownCode))
 	while(attempt != opponentCode){
         attempts += 1
-		attempt = chooseAttempt(clues:clues, ownCode:ownCode)
+        attempt = chooseAttempt(clues:clues, ownCode:ownCode, skillLevel:skillLevel)
         print("Code attempted: \(attempt)")
 		clues.append(generateClue(att:attempt, colorCode:opponentCode, ownColorCode:ownCode))
 	}
@@ -436,15 +448,27 @@ func playGame(ownCode:[Int], opponentCode:[Int]) -> Int {
 }
 
 
-let numrounds = 10
+let numrounds = 20
 let all_codes = initializePossibilityList()
-var tot_attempts = 0
-for x in 1...numrounds {
-    let oppCode = all_codes.random()
-    let ownCode = all_codes.random()
-    print("\(x) code to crack: \(oppCode)")
-    print("\(x) own code: \(ownCode)")
-	let atts = playGame(ownCode:ownCode, opponentCode:oppCode)
-    tot_attempts += atts
+var results = [(Double, Double)]()
+for x in 2...9 {
+    var tot_attempts = 0
+    let skillLevel = 4.0+Double(x)/20.0
+    print("Started games with skill level \(skillLevel)")
+    for x in 1...numrounds {
+        let oppCode = all_codes.random()
+        let ownCode = all_codes.random()
+        print("\(x) code to crack: \(oppCode)")
+        print("\(x) own code: \(ownCode)")
+        let atts = playGame(ownCode:ownCode, opponentCode:oppCode, skillLevel:skillLevel)
+        tot_attempts += atts
+    }
+    results.append((skillLevel, Double(tot_attempts)/Double(numrounds)))
+    print("Average number of guesses: \(Double(tot_attempts)/Double(numrounds))")
 }
-print("Average number of guesses: \(tot_attempts/numrounds)")
+print("Run completed")
+print("Results:")
+for (skill, attempts) in results{
+    print("Skilllevel \(skill): \(attempts) needed on average")
+}
+
