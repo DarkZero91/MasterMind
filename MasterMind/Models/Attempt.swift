@@ -9,31 +9,59 @@
 import Foundation
 
 class Attempt: NSObject {
-    var code: [Int8]
-    var feedback1: Feedback
-    var feedback2: Feedback
-    var player: Player
+    var choice: [Int]
+    var player1_feedback: (black:Int, white:Int)?
+    var player2_feedback: (black:Int, white:Int)?
     
-    init(code: [Int8], feedback1: Feedback, feedback2: Feedback, player: Player) {
-        self.code = code
-        self.feedback1 = feedback1
-        self.feedback2 = feedback2
-        self.player = player
+    init(choice:[Int]) {
+		print("Choice: \(choice)")
+        self.choice = choice
+        self.player1_feedback = nil
+        self.player2_feedback = nil
     }
     
-    func getCode() -> [Int8] {
-        return code
+    func getChoice() -> [Int] {
+        return choice
     }
     
-    func getFeedback1() -> Feedback {
-        return feedback1
+    func getPlayer1Feedback() -> (black:Int, white:Int) {
+        return player1_feedback!
+    }
+
+    func setPlayer1Feedback(player:Player) {
+        player1_feedback = evaluate(player:player)
     }
     
-    func getFeedback2() -> Feedback {
-        return feedback2
+    func getPlayer2Feedback() -> (black:Int, white:Int) {
+        return player2_feedback!
     }
-    
-    func getPlayer() -> Player {
-        return player
+
+    func setPlayer2Feedback(player:Player) {
+        player2_feedback = evaluate(player:player)
+    }
+
+    func evaluate(player:Player) -> (black:Int, white:Int) {
+        var white = 0
+        var black = 0
+        let code = player.getCode()
+		// make sure copies are modified
+		var chosen = choice
+		var copyCode = code
+
+        for x in 0...3 {
+            if chosen[x] == copyCode[x]{
+                black += 1
+				chosen[x] = 0
+				copyCode[x] = 0
+            }
+        }
+
+        for x in 0...3 {
+			if let i = copyCode.index(of: chosen[x]), chosen[x] != 0 {
+				white += 1
+				copyCode[i] = 0
+			}
+        }
+        return (black, white)
     }
 }
