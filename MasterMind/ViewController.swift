@@ -15,6 +15,7 @@ class ViewController: UIViewController{
         
     }
     
+    var turn = 0
     var fillButton = 0
     var game = MasterMind()
     
