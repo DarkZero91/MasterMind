@@ -67,11 +67,13 @@ class codeSelectionViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let mainController = segue.destination as! ViewController
-        for x in 0...3 {
-            code[x] = color2code(ind: x)
+        if segue.identifier == "codeSegue" {
+            let mainController = segue.destination as! ViewController
+            for x in 0...3 {
+                code[x] = color2code(ind: x)
+            }
+            mainController.game.player2.code = code
         }
-		mainController.game.player2.code = code
     }
     
     @IBAction func fillColor(_ sender: UIButton) {
@@ -115,5 +117,7 @@ class codeSelectionViewController: UIViewController {
         default: print("could not find color: \(codeButtons[ind].backgroundColor!)"); return 0
         }
     }
+
+    
 
 }

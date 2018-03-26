@@ -27,7 +27,6 @@ class ViewController: UIViewController{
     @IBOutlet var playerCodeLabels: [UILabel]!
     @IBOutlet weak var confirmButton: UIButton!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         widthMultiplier = Double(self.view.frame.size.width) / 375
@@ -125,6 +124,7 @@ class ViewController: UIViewController{
 		// generate selected code as Int array
         for x in 0...3{
             selectedCode.append(color2code(ind: x + (4*turn)))
+            Buttons[x+(4*turn)].isEnabled = false
         }
 		// evaluate and draw feedbacks
 		
@@ -142,7 +142,8 @@ class ViewController: UIViewController{
             turnLabel.text = "Turn: \(turn+1)"
             if turn < 7{
                 for x in 0...3{
-                    Buttons[x + (4*turn)].isHidden = false
+                    Buttons[x + (4*turn)].isEnabled = true
+                    Buttons[x + (4*turn)].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
                 }
             } else{
                 upperText.text = "You lose"
@@ -194,9 +195,10 @@ class ViewController: UIViewController{
             Buttons[x].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             Buttons[x].isEnabled = true
             if x > 3{
-                Buttons[x].isHidden = true
+                Buttons[x].isEnabled = false
+                Buttons[x].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5038259846)
             } else {
-                Buttons[x].isHidden = false
+                Buttons[x].isEnabled = true
             }
         }
         for x in 0...(playerEvals.endIndex-1){
@@ -207,9 +209,6 @@ class ViewController: UIViewController{
         confirmButton.isHidden = false
     }
     
-    //TODO: confirmation pins
-
-    //TODO: scaling buttons
 
 }
 
