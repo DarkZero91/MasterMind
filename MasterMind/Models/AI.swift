@@ -19,6 +19,7 @@ class AI: Player {
 	}
 	
 	func chooseAttempt(attempts:[Attempt]) -> [Int] {
+		print("In chooseAttempt of AI")
 		let chosenCode = brains.chooseAttempt(attempts: attempts, ownCode: code, skillLevel: skillLevel)
 		return chosenCode
 	}
