@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:MasterMind.xcodeproj">
+      location = "group:/Users/s2592444/Desktop/development/MasterMind/MasterMind/Clue.swift">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>

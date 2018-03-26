@@ -26,8 +26,7 @@ class ViewController: UIViewController{
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet var playerCodeLabels: [UILabel]!
     @IBOutlet weak var confirmButton: UIButton!
-    
-    
+	
     override func viewDidLoad() {
         super.viewDidLoad()
         widthMultiplier = Double(self.view.frame.size.width) / 375
@@ -119,7 +118,18 @@ class ViewController: UIViewController{
 		return true
 	}
 	
-    @IBAction func confirmChoice(_ sender: Any) {
+	func drawNewAttempt(code:[Int]) {
+		print("\(game.getTurn()): \(code)")
+		let attempt = game.checkCode(choice: code)
+		drawFeedbacks(attempt: attempt)
+		if upperText.text != "You win" && upperText.text != "You lose"{
+			checkWinner()
+		}
+		confirmButton.isHidden = true
+		game.switchTurn(controller: self)
+	}
+	
+	@IBAction func confirmChoice(_ sender: Any) {
 		var selectedCode = [Int]()
 		let turn = game.getTurn() - 1
 		// generate selected code as Int array
@@ -127,13 +137,7 @@ class ViewController: UIViewController{
             selectedCode.append(color2code(ind: x + (4*turn)))
         }
 		// evaluate and draw feedbacks
-		
-		let attempt = game.checkCode(choice: selectedCode)
-		drawFeedbacks(attempt: attempt)
-		if upperText.text != "You win" && upperText.text != "You lose"{
-			checkWinner()
-		}
-		confirmButton.isHidden = true
+		drawNewAttempt(code: selectedCode)
     }
     
     func checkWinner(){

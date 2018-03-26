@@ -43,5 +43,19 @@ class Clue: NSObject {
 	func getMyBlackPoints() -> Int {
 		return myBlackPoints
 	}
+	
+	// convert list of attempts to list of clues
+	static func generateClues(attempts:[Attempt]) -> [Clue] {
+		var clues:[Clue] = []
+		for a in attempts {
+			let colorCode = a.choice
+			let whitePoints = a.getPlayer2Feedback().white
+			let blackPoints = a.getPlayer2Feedback().black
+			let myBlackPoints = a.getPlayer1Feedback().black
+			let myWhitePoints = a.getPlayer1Feedback().white
+			clues.append(Clue(colorCode:colorCode, whitePoints:whitePoints, blackPoints:blackPoints, myWhitePoints:myWhitePoints, myBlackPoints:myBlackPoints))
+		}
+		return clues
+	}
 }
 

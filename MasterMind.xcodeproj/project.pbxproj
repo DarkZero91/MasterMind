@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		1E02D4CD2063EB3E0081AE84 /* codeSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E02D4CC2063EB3E0081AE84 /* codeSelectionViewController.swift */; };
-		1E9757A920650B2F00C4EC3B /* titlescreen.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1E9757A820650B2E00C4EC3B /* titlescreen.jpg */; };
 		5CDF6E34204006D600A2FC61 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF6E33204006D600A2FC61 /* AppDelegate.swift */; };
 		5CDF6E36204006D600A2FC61 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF6E35204006D600A2FC61 /* ViewController.swift */; };
 		5CDF6E39204006D600A2FC61 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CDF6E37204006D600A2FC61 /* Main.storyboard */; };
@@ -18,11 +17,12 @@
 		5CDF6E4C2040106800A2FC61 /* Attempt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF6E4B2040106800A2FC61 /* Attempt.swift */; };
 		5CDF6E4E2040108200A2FC61 /* AI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF6E4D2040108200A2FC61 /* AI.swift */; };
 		5CDF6E52204010B200A2FC61 /* MasterMind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CDF6E51204010B200A2FC61 /* MasterMind.swift */; };
+		7C9D74472065324D002CC0B9 /* GeneticAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9D74462065324D002CC0B9 /* GeneticAlgorithm.swift */; };
+		7C9D7449206538C6002CC0B9 /* Clue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9D7448206538C6002CC0B9 /* Clue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1E02D4CC2063EB3E0081AE84 /* codeSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = codeSelectionViewController.swift; sourceTree = "<group>"; };
-		1E9757A820650B2E00C4EC3B /* titlescreen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = titlescreen.jpg; path = ../../../Downloads/titlescreen.jpg; sourceTree = "<group>"; };
 		5CDF6E30204006D600A2FC61 /* MasterMind.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MasterMind.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5CDF6E33204006D600A2FC61 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5CDF6E35204006D600A2FC61 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -34,6 +34,9 @@
 		5CDF6E4B2040106800A2FC61 /* Attempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attempt.swift; sourceTree = "<group>"; };
 		5CDF6E4D2040108200A2FC61 /* AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
 		5CDF6E51204010B200A2FC61 /* MasterMind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterMind.swift; sourceTree = "<group>"; };
+		7C9D743E20652FE7002CC0B9 /* titlescreen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = titlescreen.jpg; path = /Users/s2592444/Desktop/development/MasterMind/MasterMind/titlescreen.jpg; sourceTree = "<absolute>"; };
+		7C9D74462065324D002CC0B9 /* GeneticAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticAlgorithm.swift; sourceTree = "<group>"; };
+		7C9D7448206538C6002CC0B9 /* Clue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clue.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,8 +75,8 @@
 				1E02D4CC2063EB3E0081AE84 /* codeSelectionViewController.swift */,
 				5CDF6E37204006D600A2FC61 /* Main.storyboard */,
 				5CDF6E3A204006D600A2FC61 /* Assets.xcassets */,
-				1E9757A820650B2E00C4EC3B /* titlescreen.jpg */,
 				5CDF6E3C204006D600A2FC61 /* LaunchScreen.storyboard */,
+				7C9D743E20652FE7002CC0B9 /* titlescreen.jpg */,
 				5CDF6E3F204006D600A2FC61 /* Info.plist */,
 			);
 			path = MasterMind;
@@ -84,6 +87,8 @@
 			children = (
 				5CDF6E492040102D00A2FC61 /* Player.swift */,
 				5CDF6E4B2040106800A2FC61 /* Attempt.swift */,
+				7C9D74462065324D002CC0B9 /* GeneticAlgorithm.swift */,
+				7C9D7448206538C6002CC0B9 /* Clue.swift */,
 				5CDF6E4D2040108200A2FC61 /* AI.swift */,
 				5CDF6E51204010B200A2FC61 /* MasterMind.swift */,
 			);
@@ -149,7 +154,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E9757A920650B2F00C4EC3B /* titlescreen.jpg in Resources */,
 				5CDF6E3E204006D600A2FC61 /* LaunchScreen.storyboard in Resources */,
 				5CDF6E3B204006D600A2FC61 /* Assets.xcassets in Resources */,
 				5CDF6E39204006D600A2FC61 /* Main.storyboard in Resources */,
@@ -164,8 +168,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CDF6E4C2040106800A2FC61 /* Attempt.swift in Sources */,
+				7C9D7449206538C6002CC0B9 /* Clue.swift in Sources */,
 				5CDF6E4A2040102D00A2FC61 /* Player.swift in Sources */,
 				5CDF6E36204006D600A2FC61 /* ViewController.swift in Sources */,
+				7C9D74472065324D002CC0B9 /* GeneticAlgorithm.swift in Sources */,
 				1E02D4CD2063EB3E0081AE84 /* codeSelectionViewController.swift in Sources */,
 				5CDF6E34204006D600A2FC61 /* AppDelegate.swift in Sources */,
 				5CDF6E4E2040108200A2FC61 /* AI.swift in Sources */,
