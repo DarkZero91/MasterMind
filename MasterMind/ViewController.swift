@@ -13,7 +13,7 @@ class ViewController: UIViewController{
     var widthMultiplier = 0.0
     var heightMultiplier = 0.0
     var fillButton = 0
-	var game = MasterMind()
+	var game = MasterMind(avgGuess:4.5)
     
     @IBOutlet var allLabels: [UILabel]!
     @IBOutlet var allButtons: [UIButton]!
@@ -26,7 +26,7 @@ class ViewController: UIViewController{
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet var playerCodeLabels: [UILabel]!
     @IBOutlet weak var confirmButton: UIButton!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         widthMultiplier = Double(self.view.frame.size.width) / 375
@@ -118,7 +118,30 @@ class ViewController: UIViewController{
 		return true
 	}
 	
-    @IBAction func confirmChoice(_ sender: Any) {
+	// function to call by AI: fill a button with a selected color
+	func colorButton(index:Int, colorValue:Int) {
+		let color = code2color(color: colorValue)
+		// NB: assumes the buttons are indexed in the same order as they appear on the screen (0,1,2,3 in upper row, 4,5,6,7 in second row, etc.)
+		Buttons[index].backgroundColor = color
+	}
+	
+	// generates feedback on attempt, draws it on the screen, checks for a winner, and switches turns
+	func drawNewAttempt(code:[Int]) {
+		print("\(game.getTurn()): \(code) by player \(game.getPlayerTurn().name)")
+		let attempt = game.checkCode(choice: code)
+		drawFeedbacks(attempt: attempt)
+		super.viewDidLoad()
+		self.viewWillAppear(true)
+		if upperText.text != "You win" && upperText.text != "You lose"{
+			checkWinner()
+		}
+		confirmButton.isHidden = true
+
+
+		game.switchTurn(controller: self)
+	}
+	
+	@IBAction func confirmChoice(_ sender: Any) {
 		var selectedCode = [Int]()
 		let turn = game.getTurn() - 1
 		// generate selected code as Int array
@@ -127,13 +150,7 @@ class ViewController: UIViewController{
             Buttons[x+(4*turn)].isEnabled = false
         }
 		// evaluate and draw feedbacks
-		
-		let attempt = game.checkCode(choice: selectedCode)
-		drawFeedbacks(attempt: attempt)
-		if upperText.text != "You win" && upperText.text != "You lose"{
-			checkWinner()
-		}
-		confirmButton.isHidden = true
+		drawNewAttempt(code: selectedCode)
     }
     
     func checkWinner(){
@@ -184,13 +201,25 @@ class ViewController: UIViewController{
         case colorSelection[3].backgroundColor!: return 4
         case colorSelection[4].backgroundColor!: return 5
         case colorSelection[5].backgroundColor!: return 6
-        default: print("could not find color: \(Buttons[ind].backgroundColor!)"); return 0
+        default: print("could not find a value for color: \(Buttons[ind].backgroundColor!)"); return 0
         }
     }
+	
+	func code2color(color:Int) -> UIColor {
+		switch color {
+		case 1: return #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+		case 2: return #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
+		case 3: return #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1)
+		case 4: return #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+		case 5: return #colorLiteral(red: 1, green: 0.2527923882, blue: 1, alpha: 1)
+		case 6: return #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
+		default: print("Error, no color found for value \(color)"); return #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+		}
+	}
 
     
     @IBAction func reset(_ sender: Any) {
-		game = MasterMind() // create new empty game
+		game = MasterMind(avgGuess:4.5) // create new empty game
         for x in 0...(Buttons.endIndex-1) {
             Buttons[x].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             Buttons[x].isEnabled = true
