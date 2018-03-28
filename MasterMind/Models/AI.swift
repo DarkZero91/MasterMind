@@ -13,16 +13,59 @@ class AI: Player {
 	let brains = GeneticAlgorithm()
 	var skillLevel:Double
 	
-	init(name:String, code:[Int], avgGuess:Double) {
+	init(name:String, avgGuess:Double) {
 		self.skillLevel = 4
+		let code = brains.chooseRandomCode()
+		print("AI's code: \(code)")
 		super.init(name:name, code:code)
 		setSkillLevel(averageGuesses: avgGuess)
 	}
 	
+	func unzip<K, V>(_ array: [(key: K, value: V)]) -> ([K], [V]) {
+		var keys = [K]()
+		var values = [V]()
+		
+		keys.reserveCapacity(array.count)
+		values.reserveCapacity(array.count)
+		
+		array.forEach { key, value in
+			keys.append(key)
+			values.append(value)
+		}
+		
+		return (keys, values)
+	}
+	
 	func chooseAttempt(attempts:[Attempt]) -> [Int] {
 		print("In chooseAttempt of AI")
-		let chosenCode = brains.chooseAttempt(attempts: attempts, ownCode: code, skillLevel: skillLevel)
-		return chosenCode
+		if(attempts.count > 0 && attempts.last!.getPlayer2Feedback().black==4){
+			// opponent has tried its own code: make use of it
+			return attempts.last!.choice
+		}
+		let (infoGainValues, giveAwayValues) = brains.chooseAttempt(attempts: attempts, ownCode: code, skillLevel: skillLevel)
+		
+		if(infoGainValues == nil){ // no info yet (first attempt): only giveAwayValues are provided
+			// for now choose code with least info given away
+			let (codes, giveAways) = unzip(giveAwayValues)
+			let maxGiveAway = giveAways.max()! // max value means least info given away (since its first attempt, there is always a max)
+			let indexMax = giveAways.index(of:maxGiveAway)! // see above
+			let chosenCode = codes[indexMax]
+			return chosenCode
+		} else {
+			// for now, choose the one with most info gain for AI
+			let (codes, infogains) = unzip(infoGainValues!) // unwrap possible, o.w. in if above
+			var minInfoGain = 0.0
+			if(infogains.count > 0){
+				minInfoGain = infogains.min()! // min value means most info gained
+			} else {
+				// should never happen (genetic algorithm did not find any code)
+				print("Error: No code for info gain has been found.")
+				exit(0)
+			}
+			let indexMin = infogains.index(of:minInfoGain)!
+			let chosenCode = codes[indexMin]
+			return chosenCode
+		}
 	}
 	
 	func initializePossibilityList() -> [[Int]] {

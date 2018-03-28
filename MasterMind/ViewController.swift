@@ -123,27 +123,51 @@ class ViewController: UIViewController{
 		let color = code2color(color: colorValue)
 		// NB: assumes the buttons are indexed in the same order as they appear on the screen (0,1,2,3 in upper row, 4,5,6,7 in second row, etc.)
 		Buttons[index].backgroundColor = color
+		Buttons[index].isEnabled = false
 	}
 	
 	// generates feedback on attempt, draws it on the screen, checks for a winner, and switches turns
 	func drawNewAttempt(code:[Int]) {
 		print("\(game.getTurn()): \(code) by player \(game.getPlayerTurn().name)")
 		let attempt = game.checkCode(choice: code)
+
+		
 		drawFeedbacks(attempt: attempt)
-		super.viewDidLoad()
-		self.viewWillAppear(true)
-		if upperText.text != "You win" && upperText.text != "You lose"{
+		DispatchQueue.main.async {
+			while(self.game.player_turn.getname()==self.game.player1.getname()){
+				self.aiTurn()
+			}
+		}
+		if upperText.text != "You lose" && upperText.text != "You win"{
 			checkWinner()
 		}
 		confirmButton.isHidden = true
-
-
+		if (upperText.text != "You lose" && upperText.text != "You win"){
+			if (game.player_turn.getname()==game.player2.getname()){
+				upperText.text = "Opponents turn"
+			} else {
+				upperText.text = "Your turn"
+			}
+		}
 		game.switchTurn(controller: self)
+		
+	}
+	
+	func aiTurn(){
+		let code = game.simulateAITurn()
+		for i in 0...3{
+			let c = code[i]
+			//TODO fill the right button with the color
+			let buttonindex = game.attempts.count*4 + i
+			colorButton(index:buttonindex, colorValue:c)
+		}
+		drawNewAttempt(code: code)
 	}
 	
 	@IBAction func confirmChoice(_ sender: Any) {
 		var selectedCode = [Int]()
 		let turn = game.getTurn() - 1
+		upperText.text = "Opponents turn"
 		// generate selected code as Int array
         for x in 0...3{
             selectedCode.append(color2code(ind: x + (4*turn)))
@@ -179,19 +203,17 @@ class ViewController: UIViewController{
 		playerEvals[turn].text? = "" // make sure start with empty string
 		playerEvals[turn].text?.append(String(repeating: "⚫️", count: p2Black))
 		playerEvals[turn].text?.append(String(repeating: "⚪️", count: p2White))
-		
         //is there a winner?
-        if p1Black == 4{
+        if (p1Black == 4 && attempt.player.getname()==game.player2.getname()){
             upperText.text = "You win"
             confirmButton.isHidden = true
         }
-        if p2Black == 4{
+		if (p2Black == 4 && attempt.player.getname()==game.player1.getname()){
             upperText.text = "You lose"
             confirmButton.isHidden = true
         }
-        
     }
-    
+	
     func color2code(ind:Int) -> Int{
         //buttonColor = Buttons[ind].backgroundColor
         switch Buttons[ind].backgroundColor! {

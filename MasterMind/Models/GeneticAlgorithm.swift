@@ -80,20 +80,6 @@ class GeneticAlgorithm: NSObject {
 		return Clue(colorCode: att, whitePoints: wp, blackPoints: bp, myWhitePoints: mywp, myBlackPoints: mybp)
 	}
 	
-	func unzip<K, V>(_ array: [(key: K, value: V)]) -> ([K], [V]) {
-		var keys = [K]()
-		var values = [V]()
-		
-		keys.reserveCapacity(array.count)
-		values.reserveCapacity(array.count)
-		
-		array.forEach { key, value in
-			keys.append(key)
-			values.append(value)
-		}
-		
-		return (keys, values)
-	}
 	//################################## GENETIC ALGORITHM #####################################
 	
 	//# generate a new population with "size" random codes
@@ -352,33 +338,13 @@ class GeneticAlgorithm: NSObject {
 		}
 	}
 	
-	
-	
-	func chooseAttempt(attempts:[Attempt], ownCode:[Int], skillLevel:Double) -> [Int]{
+	func chooseAttempt(attempts:[Attempt], ownCode:[Int], skillLevel:Double) -> ([([Int], Double)]?, [([Int], Double)]){
 		//# infoGainValues consists of list of colorCodes with expected number of eligible codes left (lower number is more potential info gain)
 		//# giveAwayValues consists of a same list, but then eligible codes FOR THE OPPONENT left (lower number is more potential info giveaway)
 		let clues = Clue.generateClues(attempts: attempts)
 		//#cognitive model must decide what is best
 		let (infoGainValues, giveAwayValues) = calculateStatistics(clues:clues, ownCode:ownCode, skillLevel:skillLevel)
-		if(infoGainValues == nil){ // no info yet (first attempt): only giveAwayValues are provided
-			// for now choose code with least info given away
-			let (codes, giveAways) = unzip(giveAwayValues)
-			let maxGiveAway = giveAways.max()! // max value means least info given away (since its first attempt, there is always a max)
-			let indexMax = giveAways.index(of:maxGiveAway)! // see above
-			return codes[indexMax]
-		}
-		// for now, choose the one with most info gain for AI
-		let (codes, infogains) = unzip(infoGainValues!) // unwrap possible, o.w. in if above
-		var minInfoGain = 0.0
-		if(infogains.count > 0){
-			minInfoGain = infogains.min()! // min value means most info gained
-		} else {
-			// should never happen (genetic algorithm did not find any code)
-			print("Error: No code for info gain has been found.")
-			exit(0)
-		}
-		let indexMin = infogains.index(of:minInfoGain)!
-		return codes[indexMin]
+		return (infoGainValues, giveAwayValues)
 		
 	}
 }

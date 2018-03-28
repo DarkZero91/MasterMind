@@ -286,9 +286,9 @@
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S6N-yx-5J3">
                                 <rect key="frame" x="194" y="570" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="4">
-                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="touchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NxJ-R0-nGj"/>
@@ -413,15 +413,15 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7Y-Gh-M1m">
-                                <rect key="frame" x="313" y="618" width="46" height="30"/>
+                                <rect key="frame" x="277" y="618" width="82" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Reset">
+                                <state key="normal" title="New game">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
                                     <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W3f-i8-6Rn"/>
-                                    <segue destination="tm8-9d-dDE" kind="show" id="GeE-Ny-JGg"/>
+                                    <segue destination="tm8-9d-dDE" kind="show" animates="NO" id="GeE-Ny-JGg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HkA-NL-h3j">
@@ -545,7 +545,7 @@
                                 <rect key="frame" x="337" y="20" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="CKA-Wp-EYY" kind="presentation" identifier="popupFromVC" id="Uxr-q5-PM2"/>
+                                    <segue destination="5Ct-DI-qMm" kind="presentation" modalPresentationStyle="overCurrentContext" id="5k6-B7-KC7"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -680,39 +680,12 @@
                         <outletCollection property="allLabels" destination="v74-CM-DxI" collectionClass="NSMutableArray" id="dpa-LE-ypr"/>
                         <outletCollection property="allLabels" destination="Q9P-1D-CI5" collectionClass="NSMutableArray" id="VHz-Dx-Sls"/>
                         <outletCollection property="allLabels" destination="wYi-CR-SMy" collectionClass="NSMutableArray" id="wIM-cs-2PZ"/>
+                        <outletCollection property="allButtons" destination="Wqe-EI-mpL" collectionClass="NSMutableArray" id="NMa-ZE-gEM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-98.400000000000006" y="92.203898050974516"/>
-        </scene>
-        <!--Popup View Controller-->
-        <scene sceneID="u1M-WV-TKI">
-            <objects>
-                <viewController modalPresentationStyle="overCurrentContext" id="CKA-Wp-EYY" customClass="popupViewController" customModule="MasterMind" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="v1U-rm-Hl6">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="300"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PWI-Tx-S5g">
-                                <rect key="frame" x="127" y="154" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="popupDone:" destination="CKA-Wp-EYY" eventType="touchUpInside" id="8bw-7n-G1f"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <viewLayoutGuide key="safeArea" id="ixN-RO-T9i"/>
-                    </view>
-                    <value key="contentSizeForViewInPopover" type="size" width="300" height="300"/>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="300" height="300"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="R0P-aT-Dnm" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="352" y="603"/>
         </scene>
         <!--Code Selection-->
         <scene sceneID="nj7-kL-hOt">
@@ -731,7 +704,7 @@
                                 </state>
                                 <connections>
                                     <action selector="selectCode:" destination="tm8-9d-dDE" eventType="touchUpInside" id="BXL-ye-oDh"/>
-                                    <segue destination="BYZ-38-t0r" kind="show" identifier="codeSegue" id="HbR-b0-Rwu"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="codeSegue" animates="NO" id="HbR-b0-Rwu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gvX-NK-W5J">
@@ -809,9 +782,9 @@
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TTc-In-BhI">
                                 <rect key="frame" x="194" y="181" width="40" height="40"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="b">
-                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="titleColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="touchButton:" destination="tm8-9d-dDE" eventType="touchUpInside" id="JzN-Bq-DgC"/>
@@ -839,11 +812,11 @@
                                     <action selector="touchButton:" destination="tm8-9d-dDE" eventType="touchUpInside" id="ChC-w6-5rg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HyW-8C-2eC">
-                                <rect key="frame" x="325" y="24" width="22" height="22"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UMo-Cn-oig">
+                                <rect key="frame" x="337" y="20" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
-                                    <segue destination="CKA-Wp-EYY" kind="presentation" identifier="popup" id="cA3-zY-KgF"/>
+                                    <segue destination="feK-sM-w7w" kind="presentation" modalPresentationStyle="overCurrentContext" id="JQn-ij-883"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -874,14 +847,150 @@
                         <outletCollection property="allButtons" destination="5SU-N3-OuU" collectionClass="NSMutableArray" id="E5v-eO-Tp9"/>
                         <outletCollection property="allButtons" destination="ULL-27-TeC" collectionClass="NSMutableArray" id="Osd-yG-ibc"/>
                         <outletCollection property="allLabels" destination="IoZ-3g-TGP" collectionClass="NSMutableArray" id="xTN-PV-C9H"/>
+                        <outletCollection property="allButtons" destination="UMo-Cn-oig" collectionClass="NSMutableArray" id="8s3-Bz-OJU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LfB-cw-JEx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="848.79999999999995" y="91.304347826086968"/>
         </scene>
+        <!--Popup View Controller-->
+        <scene sceneID="Cy3-AO-wDl">
+            <objects>
+                <viewController modalPresentationStyle="overCurrentContext" id="5Ct-DI-qMm" customClass="popupViewController" customModule="MasterMind" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3QH-20-Dtx">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="iFO-bv-9rr">
+                                <rect key="frame" x="16" y="20" width="343" height="589"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">In this game of Mastermind, you and your opponent try to crack each others' code.
+A code is a sequence of 4 colors.
+
+</string>
+                                        <attributes>
+                                            <font key="NSFont" size="17" name="Verdana"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="How to play:">
+                                        <attributes>
+                                            <font key="NSFont" size="17" name="Verdana-Bold"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <mutableString key="content">
+When the game starts, you can attempt to crack the code of your opponent.
+To do this, tap on a black circle and then select a color by tapping one of the colored circles which will show up below.
+After 4 colors have been selected, you may tap the "confirm" button to confirm your choice.
+You may alter the code before tapping confirm by tapping on a colored circle.
+
+After a code has been selected, feedback will be shown with black or white pegs next to the code.
+Pegs on the left side of the board show information on your own code, pegs on the right side show information on the code of your opponent.
+Black pegs indicate that a color is on the correct position on the board.
+White pegs indicate that a color is part of the code, but is not yet correctly positioned.
+After this guess has been made, your opponent will make a guess.
+This will continue until either player correctly guesses the opponents code or if 8 guesses have been made in total.
+If no player has guessed the code after 8 turns, the game ends in a loss for both players.
+You may end the game early by pressing the "new game" button on the bottom right of the screen.
+Furthermore, after the game is over this button can also be pressed to start a new game.</mutableString>
+                                        <attributes>
+                                            <font key="NSFont" size="17" name="Verdana"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DIB-Ts-bSF">
+                                <rect key="frame" x="132" y="617" width="110" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Return to game"/>
+                                <connections>
+                                    <action selector="popupDone:" destination="5Ct-DI-qMm" eventType="touchUpInside" id="IiP-SI-5GB"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="0.89535651409999994" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="HzP-bg-gwe"/>
+                    </view>
+                    <value key="contentSizeForViewInPopover" type="size" width="300" height="300"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                    <connections>
+                        <outlet property="instructionField" destination="iFO-bv-9rr" id="hWZ-aP-Dlx"/>
+                        <outlet property="returnButton" destination="DIB-Ts-bSF" id="L3m-HJ-f85"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KtH-nY-sIX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="31" y="851"/>
+        </scene>
+        <!--Popup Code Selection Controller View Controller-->
+        <scene sceneID="tMC-uU-3NJ">
+            <objects>
+                <viewController id="feK-sM-w7w" customClass="popupCodeSelectionControllerViewController" customModule="MasterMind" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="39G-Zu-Q6V" customClass="popup">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9M-iq-ge5">
+                                <rect key="frame" x="132" y="617" width="110" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Return to game"/>
+                                <connections>
+                                    <action selector="popupDone:" destination="feK-sM-w7w" eventType="touchUpInside" id="quH-6U-6ma"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Q4k-IU-i1u">
+                                <rect key="frame" x="16" y="20" width="343" height="301"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <attributedString key="attributedText">
+                                    <fragment>
+                                        <string key="content">In this game of Mastermind, you and your opponent try to crack each others' code.
+A code is a sequence of 4 colors.
+
+</string>
+                                        <attributes>
+                                            <font key="NSFont" size="17" name="Verdana"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="How to play">
+                                        <attributes>
+                                            <font key="NSFont" size="17" name="Verdana-Bold"/>
+                                            <font key="NSOriginalFont" size="17" name="Verdana-Bold"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment>
+                                        <string key="content">
+Choose your code by tapping on a dark circle and then tapping the colour you would like to select.
+After 4 colors have been selected, you may tap the "select code" button which will appear to start the game.
+Changing colors is also possible by tapping on a colored circle.</string>
+                                        <attributes>
+                                            <font key="NSFont" size="17" name="Verdana"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="truncatingTail" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="0.89535651409999994" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="u4Q-Ni-lN1"/>
+                    </view>
+                    <connections>
+                        <outlet property="instructionField" destination="Q4k-IU-i1u" id="pCR-Fv-JDa"/>
+                        <outlet property="returnButton" destination="Y9M-iq-ge5" id="21s-Fd-FKm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EI8-uB-hEa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="848.79999999999995" y="843.32833583208401"/>
+        </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="Uxr-q5-PM2"/>
-    </inferredMetricsTieBreakers>
 </document>

@@ -17,7 +17,7 @@ class MasterMind: NSObject {
 
 	init(avgGuess: Double) {
 		// TODO receive info about which player can start, and maybe player names
-		player1 = AI(name: "Dirty Dan", code: [1,1,2,1], avgGuess: 4.25)
+		player1 = AI(name: "Dirty Dan", avgGuess: 4.25)
         player2 = Player(name: "hooman", code: [])
         player_turn = player2
     }
@@ -26,7 +26,7 @@ class MasterMind: NSObject {
 
     // Submits the players attempt
     func checkCode(choice:[Int]) -> Attempt {
-        let attempt = Attempt(choice:choice)
+		let attempt = Attempt(choice:choice, player:player_turn)
         attempt.setPlayer1Feedback(player:self.player1)
         attempt.setPlayer2Feedback(player:self.player2)
         attempts.append(attempt)
@@ -48,25 +48,25 @@ class MasterMind: NSObject {
             player_turn = player2
         } else {
             player_turn = player1
-			simulateAITurn(controller: controller)
         }
     }
 	
 	//---------------------------- API END
 	
-	func simulateAITurn(controller: ViewController){
+	func simulateAITurn() -> [Int]{
 		let code = player1.chooseAttempt(attempts: attempts)
-		for i in 0...3{
-			let c = code[i]
-			//TODO fill the right button with the color
-			let buttonindex = attempts.count*4 + i
-			controller.colorButton(index:buttonindex, colorValue:c)
-		}
-		controller.drawNewAttempt(code: code)
+		return code
 	}
 	
 	
     func getAttempts() -> [Attempt] {
         return attempts
     }
+	
+	func getPlayer1() -> Player{
+		return player1
+	}
+	func getPlayer2() -> Player{
+		return player2
+	}
 }

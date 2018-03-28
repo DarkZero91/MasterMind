@@ -10,12 +10,14 @@ import Foundation
 
 class Attempt: NSObject {
     var choice: [Int]
+	var player: Player
     var player1_feedback: (black:Int, white:Int)?
     var player2_feedback: (black:Int, white:Int)?
     
-    init(choice:[Int]) {
+	init(choice:[Int], player:Player) {
 		print("Choice: \(choice)")
         self.choice = choice
+		self.player = player
         self.player1_feedback = nil
         self.player2_feedback = nil
     }

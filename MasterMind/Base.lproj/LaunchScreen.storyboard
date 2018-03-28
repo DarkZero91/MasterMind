@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,16 +18,16 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="titlescreen.jpg" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O5h-Jf-F1u">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mmtitlescreen" translatesAutoresizingMaskIntoConstraints="NO" id="Kta-8N-Z4q">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="674"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="O5h-Jf-F1u" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="6gV-ko-AjJ"/>
-                            <constraint firstItem="O5h-Jf-F1u" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="INx-Wy-Qlj"/>
-                            <constraint firstItem="O5h-Jf-F1u" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" constant="-20" id="OFZ-KI-pXD"/>
-                            <constraint firstItem="O5h-Jf-F1u" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="rDT-eP-37I"/>
+                            <constraint firstItem="Kta-8N-Z4q" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="a6c-uT-D7F"/>
+                            <constraint firstItem="Kta-8N-Z4q" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cwm-2g-XWG"/>
+                            <constraint firstItem="Kta-8N-Z4q" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="kWF-Ay-Fva"/>
+                            <constraint firstAttribute="bottom" secondItem="Kta-8N-Z4q" secondAttribute="bottom" constant="-7" id="q1U-6U-mJf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -39,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="titlescreen.jpg" width="400" height="400"/>
+        <image name="mmtitlescreen" width="289" height="175"/>
     </resources>
 </document>

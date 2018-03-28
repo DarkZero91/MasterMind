@@ -1,0 +1,23 @@
+In this game of Mastermind, you and your opponent try to crack each others' code.
+A code is a sequence of 4 colors.
+
+How to play (code selection):
+Choose your code by tapping on a dark circle and then tapping the colour you would like to select.
+After 4 colors have been selected, you may tap the "select code" button which will appear to start the game.
+Changing colors is also possible by tapping on a colored circle.
+
+How to play (mastermind):
+When the game starts, you can attempt to crack the code of your opponent.
+To do this, tap on a black circle and then select a color by tapping one of the colored circles which will show up below.
+After 4 colors have been selected, you may tap the "confirm" button to confirm your choice.
+You may alter the code before tapping confirm by tapping on a colored circle.
+
+After a code has been selected, feedback will be shown with black or white pegs next to the code.
+Pegs on the left side of the board show information on your own code, pegs on the right side show information on the code of your opponent.
+Black pegs indicate that a color is on the correct position on the board.
+White pegs indicate that a color is part of the code, but is not yet correctly positioned.
+After this guess has been made, your opponent will make a guess.
+This will continue until either player correctly guesses the opponents code or if 8 guesses have been made in total.
+If no player has guessed the code after 8 turns, the game ends in a loss for both players.
+You may end the game early by pressing the "new game" button on the bottom right of the screen.
+Furthermore, after the game is over this button can also be pressed to start a new game.
