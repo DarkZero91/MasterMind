@@ -13,9 +13,10 @@ class AI: Player {
 	let brains = GeneticAlgorithm()
 	var skillLevel:Double
 	
-	init(name:String, code:[Int], skillLevel:Double) {
-		self.skillLevel = skillLevel
+	init(name:String, code:[Int], avgGuess:Double) {
+		self.skillLevel = 4
 		super.init(name:name, code:code)
+		setSkillLevel(averageGuesses: avgGuess)
 	}
 	
 	func chooseAttempt(attempts:[Attempt]) -> [Int] {
@@ -37,5 +38,10 @@ class AI: Player {
 			}
 		}
 		return all_combinations
+	}
+	
+	func setSkillLevel(averageGuesses:Double){
+		let newlevel = max(4.0, 0.8370674 - (-1.741997/0.4705081)*(1-pow(M_E, -0.4705081*averageGuesses)))
+		skillLevel = newlevel
 	}
 }

@@ -15,9 +15,9 @@ class MasterMind: NSObject {
     var player_turn: Player
     var attempts: [Attempt] = []
 
-	override init() {
+	init(avgGuess: Double) {
 		// TODO receive info about which player can start, and maybe player names
-		player1 = AI(name: "Dirty Dan", code: [1,1,2,1], skillLevel: 4.25)
+		player1 = AI(name: "Dirty Dan", code: [1,1,2,1], avgGuess: 4.25)
         player2 = Player(name: "hooman", code: [])
         player_turn = player2
     }

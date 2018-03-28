@@ -13,7 +13,7 @@ class ViewController: UIViewController{
     var widthMultiplier = 0.0
     var heightMultiplier = 0.0
     var fillButton = 0
-	var game = MasterMind()
+	var game = MasterMind(avgGuess:4.5)
     
     @IBOutlet var allLabels: [UILabel]!
     @IBOutlet var allButtons: [UIButton]!
@@ -130,10 +130,14 @@ class ViewController: UIViewController{
 		print("\(game.getTurn()): \(code) by player \(game.getPlayerTurn().name)")
 		let attempt = game.checkCode(choice: code)
 		drawFeedbacks(attempt: attempt)
+		super.viewDidLoad()
+		self.viewWillAppear(true)
 		if upperText.text != "You win" && upperText.text != "You lose"{
 			checkWinner()
 		}
 		confirmButton.isHidden = true
+
+
 		game.switchTurn(controller: self)
 	}
 	
@@ -213,7 +217,7 @@ class ViewController: UIViewController{
 
     
     @IBAction func reset(_ sender: Any) {
-		game = MasterMind() // create new empty game
+		game = MasterMind(avgGuess:4.5) // create new empty game
         for x in 0...(Buttons.endIndex-1) {
             Buttons[x].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             Buttons[x].isEnabled = true

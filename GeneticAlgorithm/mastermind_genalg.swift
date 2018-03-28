@@ -448,10 +448,10 @@ func playGame(ownCode:[Int], opponentCode:[Int], skillLevel:Double) -> Int {
 }
 
 
-let numrounds = 20
+let numrounds = 100
 let all_codes = initializePossibilityList()
 var results = [(Double, Double)]()
-for x in 2...9 {
+for x in 0...0 {
     var tot_attempts = 0
     let skillLevel = 4.0+Double(x)/20.0
     print("Started games with skill level \(skillLevel)")
