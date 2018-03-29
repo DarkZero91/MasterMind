@@ -42,27 +42,27 @@ class AI: Player {
 			// opponent has tried its own code: make use of it
 			return attempts.last!.choice
 		}
-		let (infoGainValues, giveAwayValues) = brains.chooseAttempt(attempts: attempts, ownCode: code, skillLevel: skillLevel)
+		let (codes, infoGainValues, giveAwayValues) = brains.chooseAttempt(attempts: attempts, ownCode: code, skillLevel: skillLevel)
 		
-		if(infoGainValues == nil){ // no info yet (first attempt): only giveAwayValues are provided
+		if(infoGainValues.isEmpty){ // no info yet (first attempt): only giveAwayValues are provided
 			// for now choose code with least info given away
-			let (codes, giveAways) = unzip(giveAwayValues)
-			let maxGiveAway = giveAways.max()! // max value means least info given away (since its first attempt, there is always a max)
-			let indexMax = giveAways.index(of:maxGiveAway)! // see above
+			//let (codes, giveAways) = unzip(giveAwayValues)
+			let maxGiveAway = giveAwayValues.max()! // max value means least info given away (since its first attempt, there is always a max)
+			let indexMax = giveAwayValues.index(of:maxGiveAway)! // see above
 			let chosenCode = codes[indexMax]
 			return chosenCode
 		} else {
 			// for now, choose the one with most info gain for AI
-			let (codes, infogains) = unzip(infoGainValues!) // unwrap possible, o.w. in if above
+			//let (codes, infogains) = unzip(infoGainValues!) // unwrap possible, o.w. in if above
 			var minInfoGain = 0.0
-			if(infogains.count > 0){
-				minInfoGain = infogains.min()! // min value means most info gained
+            if(infoGainValues.count > 0){
+                minInfoGain = Double(infoGainValues.min()!) // min value means most info gained
 			} else {
 				// should never happen (genetic algorithm did not find any code)
 				print("Error: No code for info gain has been found.")
 				exit(0)
 			}
-			let indexMin = infogains.index(of:minInfoGain)!
+            let indexMin = infoGainValues.index(of:Int(minInfoGain))!
 			let chosenCode = codes[indexMin]
 			return chosenCode
 		}

@@ -25,6 +25,7 @@ class ViewController: UIViewController{
     @IBOutlet var playerEvals: [UILabel]!
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet var playerCodeLabels: [UILabel]!
+    @IBOutlet var aiCodeLabels: [UILabel]!
     @IBOutlet weak var confirmButton: UIButton!
 
     override func viewDidLoad() {
@@ -37,20 +38,21 @@ class ViewController: UIViewController{
         circleButtons(buttons: Buttons)
         circleButtons(buttons: colorSelection)
         circleButtons(labels: playerCodeLabels)
-        setCode()
+        circleButtons(labels: aiCodeLabels)
+        setCode(code:game.player2.code,labels:playerCodeLabels)
+        setCode(code:game.player1.code,labels:aiCodeLabels)
 
     }
 
-    func setCode(){
-		let code = game.player2.code
+    func setCode(code:[Int], labels:[UILabel]!){
         for x in 0...3{
             switch code[x]{
-                case 1: playerCodeLabels[x].backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
-                case 2: playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
-                case 3: playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1)
-                case 4: playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
-                case 5: playerCodeLabels[x].backgroundColor = #colorLiteral(red: 1, green: 0.2527923882, blue: 1, alpha: 1)
-                case 6: playerCodeLabels[x].backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
+                case 1: labels[x].backgroundColor = #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+                case 2: labels[x].backgroundColor = #colorLiteral(red: 0.9994240403, green: 0.9855536819, blue: 0, alpha: 1)
+                case 3: labels[x].backgroundColor = #colorLiteral(red: 0, green: 0.9768045545, blue: 0, alpha: 1)
+                case 4: labels[x].backgroundColor = #colorLiteral(red: 0.01680417731, green: 0.1983509958, blue: 1, alpha: 1)
+                case 5: labels[x].backgroundColor = #colorLiteral(red: 1, green: 0.2527923882, blue: 1, alpha: 1)
+                case 6: labels[x].backgroundColor = #colorLiteral(red: 0.9999960065, green: 1, blue: 1, alpha: 1)
                 default: print("could not find code")
             }
         }
@@ -207,10 +209,18 @@ class ViewController: UIViewController{
         if (p1Black == 4 && attempt.player.getname()==game.player2.getname()){
             upperText.text = "You win"
             confirmButton.isHidden = true
+            for x in aiCodeLabels{
+                x.isHidden = false
+            }
+            turnLabel.text = "Opponents code:"
         }
 		if (p2Black == 4 && attempt.player.getname()==game.player1.getname()){
             upperText.text = "You lose"
             confirmButton.isHidden = true
+            for x in aiCodeLabels{
+                x.isHidden = false
+            }
+            turnLabel.text = "Opponents code:"
         }
     }
 	

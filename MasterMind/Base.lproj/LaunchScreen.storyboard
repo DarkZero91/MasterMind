@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mmtitlescreen" translatesAutoresizingMaskIntoConstraints="NO" id="Kta-8N-Z4q">
+                            <imageView opaque="NO" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="mastermindBox" translatesAutoresizingMaskIntoConstraints="NO" id="Kta-8N-Z4q">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="674"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
@@ -38,6 +38,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="mmtitlescreen" width="289" height="175"/>
+        <image name="mastermindBox" width="360" height="803"/>
     </resources>
 </document>

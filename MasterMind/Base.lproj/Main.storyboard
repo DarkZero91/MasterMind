@@ -261,13 +261,6 @@
                                     <action selector="confirmChoice:" destination="BYZ-38-t0r" eventType="touchUpInside" id="izG-GH-ELC"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Turn: 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="FgL-xO-tZn">
-                                <rect key="frame" x="29" y="530" width="72" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your turn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0nf-BQ-f7p">
                                 <rect key="frame" x="119.5" y="20" width="136" height="34"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -367,7 +360,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Your code:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="jO2-di-6bi">
-                                <rect key="frame" x="29" y="497" width="88" height="25"/>
+                                <rect key="frame" x="29" y="497" width="97" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -548,6 +541,45 @@
                                     <action selector="touchButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xcC-6J-rIZ"/>
                                 </connections>
                             </button>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C6a-FN-l8b">
+                                <rect key="frame" x="137" y="527" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r6d-On-OEJ">
+                                <rect key="frame" x="163" y="527" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oIc-K9-S9N">
+                                <rect key="frame" x="191" y="527" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yOy-jj-KaA">
+                                <rect key="frame" x="217" y="527" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Turn: 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="FgL-xO-tZn">
+                                <rect key="frame" x="29" y="523" width="97" height="25"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.66799789669999998" green="0.47512125970000002" blue="0.25860109930000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -681,6 +713,14 @@
                         <outletCollection property="allLabels" destination="Q9P-1D-CI5" collectionClass="NSMutableArray" id="VHz-Dx-Sls"/>
                         <outletCollection property="allLabels" destination="wYi-CR-SMy" collectionClass="NSMutableArray" id="wIM-cs-2PZ"/>
                         <outletCollection property="allButtons" destination="Wqe-EI-mpL" collectionClass="NSMutableArray" id="NMa-ZE-gEM"/>
+                        <outletCollection property="aiCodeLabels" destination="C6a-FN-l8b" collectionClass="NSMutableArray" id="Izq-Xr-VLz"/>
+                        <outletCollection property="aiCodeLabels" destination="r6d-On-OEJ" collectionClass="NSMutableArray" id="cIu-S7-cM5"/>
+                        <outletCollection property="aiCodeLabels" destination="oIc-K9-S9N" collectionClass="NSMutableArray" id="xKn-pp-PFc"/>
+                        <outletCollection property="aiCodeLabels" destination="yOy-jj-KaA" collectionClass="NSMutableArray" id="rpt-FQ-nJD"/>
+                        <outletCollection property="allLabels" destination="C6a-FN-l8b" collectionClass="NSMutableArray" id="zrb-ZP-5dX"/>
+                        <outletCollection property="allLabels" destination="r6d-On-OEJ" collectionClass="NSMutableArray" id="6XH-qR-nFD"/>
+                        <outletCollection property="allLabels" destination="oIc-K9-S9N" collectionClass="NSMutableArray" id="vjv-FB-xAw"/>
+                        <outletCollection property="allLabels" destination="yOy-jj-KaA" collectionClass="NSMutableArray" id="E6V-zA-iIL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -881,7 +921,7 @@ A code is a sequence of 4 colors.
                                         </attributes>
                                     </fragment>
                                     <fragment>
-                                        <string key="content">
+                                        <mutableString key="content">
 When the game starts, you can attempt to crack the code of your opponent.
 To do this, tap on a black circle and then select a color by tapping one of the colored circles which will show up below.
 After 4 colors have been selected, you may tap the "confirm" button to confirm your choice.
@@ -895,7 +935,7 @@ After this guess has been made, your opponent will make a guess.
 This will continue until either player correctly guesses the opponents code or if 8 guesses have been made in total.
 If no player has guessed the code after 8 turns, the game ends in a loss for both players.
 You may end the game early by pressing the "new game" button on the bottom right of the screen.
-Furthermore, after the game is over this button can also be pressed to start a new game.</string>
+Furthermore, after the game is over this button can also be pressed to start a new game.</mutableString>
                                         <attributes>
                                             <font key="NSFont" size="17" name="Verdana"/>
                                         </attributes>
