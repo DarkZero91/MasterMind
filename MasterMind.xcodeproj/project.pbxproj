@@ -37,7 +37,6 @@
 		5CDF6E4B2040106800A2FC61 /* Attempt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attempt.swift; sourceTree = "<group>"; };
 		5CDF6E4D2040108200A2FC61 /* AI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AI.swift; sourceTree = "<group>"; };
 		5CDF6E51204010B200A2FC61 /* MasterMind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterMind.swift; sourceTree = "<group>"; };
-		7C9D743E20652FE7002CC0B9 /* titlescreen.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = titlescreen.jpg; path = /Users/s2592444/Desktop/development/MasterMind/MasterMind/titlescreen.jpg; sourceTree = "<absolute>"; };
 		7C9D74462065324D002CC0B9 /* GeneticAlgorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneticAlgorithm.swift; sourceTree = "<group>"; };
 		7C9D7448206538C6002CC0B9 /* Clue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clue.swift; sourceTree = "<group>"; };
 		7CC03A08206BB81600EFE9D6 /* popupCodeSelectionControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = popupCodeSelectionControllerViewController.swift; sourceTree = "<group>"; };
@@ -82,7 +81,6 @@
 				5CDF6E37204006D600A2FC61 /* Main.storyboard */,
 				5CDF6E3A204006D600A2FC61 /* Assets.xcassets */,
 				5CDF6E3C204006D600A2FC61 /* LaunchScreen.storyboard */,
-				7C9D743E20652FE7002CC0B9 /* titlescreen.jpg */,
 				5CDF6E3F204006D600A2FC61 /* Info.plist */,
 			);
 			path = MasterMind;
@@ -321,6 +319,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZP8WZFQ97H;
 				INFOPLIST_FILE = MasterMind/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = T4.MasterMind;
@@ -335,6 +334,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = ZP8WZFQ97H;
 				INFOPLIST_FILE = MasterMind/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = T4.MasterMind;
