@@ -927,10 +927,10 @@ To do this, tap on a black circle and then select a color by tapping one of the 
 After 4 colors have been selected, you may tap the "confirm" button to confirm your choice.
 You may alter the code before tapping confirm by tapping on a colored circle.
 
-After a code has been selected, feedback will be shown with black or white pegs next to the code.
-Pegs on the left side of the board show information on your own code, pegs on the right side show information on the code of your opponent.
-Black pegs indicate that a color is on the correct position on the board.
-White pegs indicate that a color is part of the code, but is not yet correctly positioned.
+After a code has been selected, feedback will be shown with black or white pins next to the code.
+Pins on the left side of the board show information on your own code, pins on the right side show information on the code of your opponent.
+Black pins indicate that a color is on the correct position on the board.
+White pins indicate that a color is part of the code, but is not yet correctly positioned.
 After this guess has been made, your opponent will make a guess.
 This will continue until either player correctly guesses the opponents code or if 8 guesses have been made in total.
 If no player has guessed the code after 8 turns, the game ends in a loss for both players.
