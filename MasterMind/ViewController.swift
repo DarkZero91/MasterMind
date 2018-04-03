@@ -13,7 +13,9 @@ class ViewController: UIViewController{
     var widthMultiplier = 0.0
     var heightMultiplier = 0.0
     var fillButton = 0
-	var game = MasterMind(avgGuess:4.5)
+	var totGames = 0
+	var totAttempts = 0
+	var game = MasterMind(avgGuess:5.0)
     
     @IBOutlet var allLabels: [UILabel]!
     @IBOutlet var allButtons: [UIButton]!
@@ -135,11 +137,11 @@ class ViewController: UIViewController{
 
 		
 		drawFeedbacks(attempt: attempt)
-		DispatchQueue.main.async {
-			while(self.game.player_turn.getname()==self.game.player1.getname()){
-				self.aiTurn()
-			}
-		}
+		//DispatchQueue.main.async {
+			//while(self.game.player_turn.getname()==self.game.player1.getname()){
+				//self.aiTurn()
+			//}
+		//}
 		if upperText.text != "You lose" && upperText.text != "You win"{
 			checkWinner()
 		}
@@ -147,11 +149,13 @@ class ViewController: UIViewController{
 		if (upperText.text != "You lose" && upperText.text != "You win"){
 			if (game.player_turn.getname()==game.player2.getname()){
 				upperText.text = "Opponents turn"
+				game.switchTurn()
+				aiTurn()
 			} else {
 				upperText.text = "Your turn"
+				game.switchTurn()
 			}
 		}
-		game.switchTurn(controller: self)
 		
 	}
 	
@@ -183,7 +187,7 @@ class ViewController: UIViewController{
 		let turn = game.getTurn() - 1
         if upperText.text != "You win" && upperText.text != "You lose"{
             turnLabel.text = "Turn: \(turn+1)"
-            if turn < 7{
+            if turn < 8{
                 for x in 0...3{
                     Buttons[x + (4*turn)].isEnabled = true
                     Buttons[x + (4*turn)].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -249,9 +253,27 @@ class ViewController: UIViewController{
 		}
 	}
 
+	func updateStats(){
+		// only needed when game was over
+		if(upperText.text=="You won" || upperText.text=="You lose"){
+			self.totGames += 1
+			if(upperText.text=="You won"){
+				self.totAttempts += (self.game.attempts.count-1) // add number of guesses that was needed, minus one
+			} else {
+				if(upperText.text=="You lose"){
+					self.totAttempts += (self.game.attempts.count+1) // add max guesses + 1???
+				}
+			}
+		}
+	}
     
     @IBAction func reset(_ sender: Any) {
-		game = MasterMind(avgGuess:4.5) // create new empty game
+		updateStats() // update game history stats, needed for adaptive AI
+		if(self.totGames==0){ // no data yet, set to standard 5.0
+			game = MasterMind(avgGuess: 5.0)
+		} else {
+			game = MasterMind(avgGuess:Double(self.totAttempts/self.totGames)) // create new empty game, with skill level
+		}
         for x in 0...(Buttons.endIndex-1) {
             Buttons[x].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             Buttons[x].isEnabled = true

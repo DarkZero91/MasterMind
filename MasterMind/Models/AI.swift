@@ -14,11 +14,11 @@ class AI: Player {
 	var skillLevel:Double
 	
 	init(name:String, avgGuess:Double) {
-		self.skillLevel = 4
+		self.skillLevel = 4 // place holder, cannot be init via func before super.init
 		let code = brains.chooseRandomCode()
 		print("AI's code: \(code)")
 		super.init(name:name, code:code)
-		setSkillLevel(averageGuesses: avgGuess)
+		setSkillLevel(averageGuesses: avgGuess) // real init
 	}
 	
 	func unzip<K, V>(_ array: [(key: K, value: V)]) -> ([K], [V]) {
@@ -86,5 +86,6 @@ class AI: Player {
 	func setSkillLevel(averageGuesses:Double){
 		let newlevel = max(4.0, 0.8370674 - (-1.741997/0.4705081)*(1-pow(M_E, -0.4705081*averageGuesses)))
 		skillLevel = newlevel
+		print("Skill level of AI set to \(skillLevel)")
 	}
 }

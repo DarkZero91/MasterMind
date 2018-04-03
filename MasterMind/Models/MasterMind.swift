@@ -17,7 +17,7 @@ class MasterMind: NSObject {
 
 	init(avgGuess: Double) {
 		// TODO receive info about which player can start, and maybe player names
-		player1 = AI(name: "Dirty Dan", avgGuess: 4.25)
+		player1 = AI(name: "Dirty Dan", avgGuess: avgGuess)
         player2 = Player(name: "hooman", code: [])
         player_turn = player2
     }
@@ -43,7 +43,7 @@ class MasterMind: NSObject {
     }
 
     // Switches the turn from one player to another
-    func switchTurn(controller: ViewController) {
+    func switchTurn() {
         if(player_turn == player1) {
             player_turn = player2
         } else {
