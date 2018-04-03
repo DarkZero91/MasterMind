@@ -37,8 +37,8 @@ class AI: Player {
 	}
 	
 	func chooseAttempt(attempts:[Attempt]) -> [Int] {
-		print("In chooseAttempt of AI")
-		print("My skilllevel is \(skillLevel)")
+		//print("In chooseAttempt of AI")
+		print("AI skilllevel is \(skillLevel)")
 		if(attempts.count > 0 && attempts.last!.getPlayer2Feedback().black==4){
 			// opponent has tried its own code: make use of it
 			return attempts.last!.choice
@@ -125,6 +125,6 @@ class AI: Player {
 	func setSkillLevel(averageGuesses:Double){
 		let newlevel = max(4.0, 0.8370674 - (-1.741997/0.4705081)*(1-pow(M_E, -0.4705081*averageGuesses)))
 		skillLevel = newlevel
-		print("Skill level of AI set to \(skillLevel)")
+		//print("Skill level of AI set to \(skillLevel)")
 	}
 }
