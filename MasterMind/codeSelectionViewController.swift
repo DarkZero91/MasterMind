@@ -14,6 +14,8 @@ class codeSelectionViewController: UIViewController {
     var heightMultiplier = 0.0
     var code = [0,0,0,0]
     var fillButton = 0
+	var totGames = 0
+	var totAttempts = 0
     
     @IBOutlet var codeButtons: [UIButton]!
     @IBOutlet var colorButtons: [UIButton]!
@@ -68,11 +70,15 @@ class codeSelectionViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "codeSegue" {
+			
             let mainController = segue.destination as! ViewController
             for x in 0...3 {
                 code[x] = color2code(ind: x)
             }
+			//maybe TODO very ugly here, if possible move to viewcontroller
             mainController.game.player2.code = code
+			mainController.totAttempts = self.totAttempts
+			mainController.totGames = self.totGames
         }
     }
     

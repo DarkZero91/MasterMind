@@ -38,34 +38,64 @@ class AI: Player {
 	
 	func chooseAttempt(attempts:[Attempt]) -> [Int] {
 		print("In chooseAttempt of AI")
+		print("My skilllevel is \(skillLevel)")
 		if(attempts.count > 0 && attempts.last!.getPlayer2Feedback().black==4){
 			// opponent has tried its own code: make use of it
 			return attempts.last!.choice
 		}
-		let (codes, infoGainValues, giveAwayValues) = brains.chooseAttempt(attempts: attempts, ownCode: code, skillLevel: skillLevel)
-		
-		if(infoGainValues.isEmpty){ // no info yet (first attempt): only giveAwayValues are provided
-			// for now choose code with least info given away
-			//let (codes, giveAways) = unzip(giveAwayValues)
-			let maxGiveAway = giveAwayValues.max()! // max value means least info given away (since its first attempt, there is always a max)
-			let indexMax = giveAwayValues.index(of:maxGiveAway)! // see above
-			let chosenCode = codes[indexMax]
-			return chosenCode
-		} else {
-			// for now, choose the one with most info gain for AI
-			//let (codes, infogains) = unzip(infoGainValues!) // unwrap possible, o.w. in if above
-			var minInfoGain = 0.0
-            if(infoGainValues.count > 0){
-                minInfoGain = Double(infoGainValues.min()!) // min value means most info gained
-			} else {
-				// should never happen (genetic algorithm did not find any code)
-				print("Error: No code for info gain has been found.")
-				exit(0)
-			}
-            let indexMin = infoGainValues.index(of:Int(minInfoGain))!
-			let chosenCode = codes[indexMin]
-			return chosenCode
+		var (codes, infoGainValues, giveAwayValues) = brains.chooseAttempt(attempts: attempts, ownCode: code, skillLevel: skillLevel)
+		if(codes.count==1){
+			// only one possible code: return it
+			return codes[0]
 		}
+		// make sure previous attempts are removed
+		(codes, infoGainValues, giveAwayValues) = filterOutPreviousAttempts(codes: codes, infoGainValues:infoGainValues, giveAwayValues:giveAwayValues, attempts: attempts)
+		if(codes.count==1){
+			// only one possible code: return it
+			return codes[0]
+		}
+		
+		// for now, choose the one with most info gain for AI
+		print("Codes: \(codes.count), IG: \(infoGainValues.count), GA: \(giveAwayValues.count)")
+		var minInfoGain = 0.0
+		if(infoGainValues.count > 0){
+			minInfoGain = Double(infoGainValues.min()!) // min value means most info gained
+		} else {
+			// should never happen (genetic algorithm did not find any code)
+			print("Error: No code for info gain has been found.")
+			exit(0)
+		}
+		let indexMin = infoGainValues.index(of:minInfoGain)!
+		let chosenCode = codes[indexMin]
+		return chosenCode
+	}
+	
+	func filterOutPreviousAttempts(codes:[[Int]], infoGainValues:[Double], giveAwayValues:[Int], attempts:[Attempt]) -> ([[Int]], [Double], [Int]){
+		// filter out previous guesses, but make sure not all codes are removed
+		var prev = [Bool]()
+		for code in codes {
+			// identify duplicates
+			prev.append(previousGuess(guess: code, attempts: attempts))
+		}
+		// copy data of non-duplicates
+		var newCodes = [[Int]]()
+		var newIG = [Double]()
+		var newGA = [Int]()
+		for i in 0...prev.count-1 {
+			if(!prev[i]){
+				newCodes.append(codes[i])
+				newIG.append(infoGainValues[i])
+				newGA.append(giveAwayValues[i])
+			}
+		}
+		if(newCodes.isEmpty){
+			// make sure at least one is kept (random)
+			let i = Int(arc4random_uniform(UInt32(codes.count)))
+			newCodes.append(codes[i])
+			newIG.append(infoGainValues[i])
+			newGA.append(giveAwayValues[i])
+		}
+		return (newCodes, newIG, newGA)
 	}
 	
 	func initializePossibilityList() -> [[Int]] {
@@ -81,6 +111,15 @@ class AI: Player {
 			}
 		}
 		return all_combinations
+	}
+	
+	func previousGuess(guess:[Int], attempts:[Attempt]) -> Bool {
+		for att in attempts {
+			if att.choice == guess {
+				return true
+			}
+		}
+		return false
 	}
 	
 	func setSkillLevel(averageGuesses:Double){

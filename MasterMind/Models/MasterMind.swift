@@ -14,12 +14,20 @@ class MasterMind: NSObject {
     var player2: Player
     var player_turn: Player
     var attempts: [Attempt] = []
+	var userStarts: Bool
+	var start: Bool
 
 	init(avgGuess: Double) {
-		// TODO receive info about which player can start, and maybe player names
 		player1 = AI(name: "Dirty Dan", avgGuess: avgGuess)
         player2 = Player(name: "hooman", code: [])
-        player_turn = player2
+		let userStarts = arc4random_uniform(2) == 0
+		if(userStarts){
+        	player_turn = player2
+		} else {
+			player_turn = player1
+		}
+		self.userStarts = userStarts
+		self.start = true
     }
 
     //---------------------------- API START
@@ -49,6 +57,7 @@ class MasterMind: NSObject {
         } else {
             player_turn = player1
         }
+		start = false
     }
 	
 	//---------------------------- API END
@@ -56,6 +65,10 @@ class MasterMind: NSObject {
 	func simulateAITurn() -> [Int]{
 		let code = player1.chooseAttempt(attempts: attempts)
 		return code
+	}
+	
+	func randomBool() -> Bool {
+		return arc4random_uniform(2) == 0
 	}
 	
 	

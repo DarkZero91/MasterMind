@@ -43,7 +43,17 @@ class ViewController: UIViewController{
         circleButtons(labels: aiCodeLabels)
         setCode(code:game.player2.code,labels:playerCodeLabels)
         setCode(code:game.player1.code,labels:aiCodeLabels)
-
+		// is at the start of a game, and AI begins, simulate AI's turn
+		if(game.start){
+			if(self.totGames==0){ // no data yet, set to standard 5.0
+				game.player1.setSkillLevel(averageGuesses: 5.0)
+			} else {
+				game.player1.setSkillLevel(averageGuesses:Double(self.totAttempts/self.totGames)) // create new empty game, with skill level
+			}
+		}
+		if(game.userStarts==false){
+			aiTurn()
+		}
     }
 
     func setCode(code:[Int], labels:[UILabel]!){
@@ -261,19 +271,26 @@ class ViewController: UIViewController{
 				self.totAttempts += (self.game.attempts.count-1) // add number of guesses that was needed, minus one
 			} else {
 				if(upperText.text=="You lose"){
-					self.totAttempts += (self.game.attempts.count+1) // add max guesses + 1???
+					self.totAttempts += 9 // add max guesses + 1???
 				}
 			}
 		}
 	}
+	
+	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+		print("In prepare")
+		updateStats() // update game history stats, needed for adaptive AI
+		
+		if segue.identifier == "gameToCode" {
+			let codeController = segue.destination as! codeSelectionViewController
+			codeController.totGames = self.totGames
+			codeController.totAttempts = self.totAttempts
+
+		}
+	}
     
     @IBAction func reset(_ sender: Any) {
-		updateStats() // update game history stats, needed for adaptive AI
-		if(self.totGames==0){ // no data yet, set to standard 5.0
-			game = MasterMind(avgGuess: 5.0)
-		} else {
-			game = MasterMind(avgGuess:Double(self.totAttempts/self.totGames)) // create new empty game, with skill level
-		}
+		print("In reset")
         for x in 0...(Buttons.endIndex-1) {
             Buttons[x].backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
             Buttons[x].isEnabled = true

@@ -125,7 +125,7 @@ class GeneticAlgorithm: NSObject {
             if(crossPointOne == 1){
                 crossPointTwo = Int(arc4random_uniform(2)) + 2 // 2 or 3
             }
-            let newCode =  Array(parOne.prefix(crossPointOne)) + Array(parTwo[crossPointOne..<crossPointTwo]) + Array(parOne.suffix(parOne.count-crossPointTwo)) //NB not sure about the second slice (if notation is correct)
+            let newCode =  Array(parOne.prefix(crossPointOne)) + Array(parTwo[crossPointOne..<crossPointTwo]) + Array(parOne.suffix(parOne.count-crossPointTwo))
             return newCode
         }
     }
@@ -236,9 +236,7 @@ class GeneticAlgorithm: NSObject {
         }
         for x in 0...fitnesses.count-1 {
             if(fitnesses[x] <= optimalFitness && out.map{$0 == population[x]}.contains(true) == false) {
-                if(previousGuess(guess:population[x], clues:clues)==false) {
-                    out.append(population[x])
-                }
+				out.append(population[x])
             }
         }
         return out
@@ -263,18 +261,24 @@ class GeneticAlgorithm: NSObject {
     }
     
     //# calculate for every eligible code the expected information gain / expected number of eligible codes left after the attempt
-    func calculateSelectionValues(codes:[[Int]], a:Int, b:Int) -> [Int] {
-        var selectionValues = [Int]()
+    func calculateSelectionValues(codes:[[Int]], a:Int, b:Int) -> [Double] {
+        var selectionValues = [Double]()
         let subset = createSubSet(codes:codes, maxSize:20) //# create subset to evaluate codes on (currently, with numCodes<=10 redundant)
         //# calculate estimated number of codes left per code
         for code in codes {
             var totRemainingEligibleCodes = 0
             for possibleSecretCode in subset{
+				// assume possibleSecretCode is the code of the opponent
                 let clue = generateClue(att:code, colorCode:possibleSecretCode, ownColorCode:nil)
                 let fitnesses = calculateFitness(population:subset, clues:[clue], a:a, b:b) //# determine fitness according to clue and secret code
                 totRemainingEligibleCodes += fitnesses.filter{$0==0}.count //# items with 0 fitness are eligible under the new clue
             }
-            selectionValues.append(totRemainingEligibleCodes)
+			var avg = 0.0
+			if(subset.count>0){
+				// should always be the case
+				avg = Double(totRemainingEligibleCodes)/Double(subset.count)
+			}
+            selectionValues.append(avg)
         }
         //# return codes with estimated info gain values (remaining eligible codes)
         return selectionValues
@@ -313,7 +317,7 @@ class GeneticAlgorithm: NSObject {
         return eligibleCodes
     }
     
-    func calculateStatistics(clues:[Clue], ownCode:[Int], skillLevel:Double) -> ([[Int]], [Int], [Int]){ // not sure about return type (tuple of lists of tuples, both lists of list of integers and doubles)
+    func calculateStatistics(clues:[Clue], ownCode:[Int], skillLevel:Double) -> ([[Int]], [Double], [Int]){ // not sure about return type (tuple of lists of tuples, both lists of list of integers and doubles)
         let a = 2
         let b = 2
         let selectedCodes = geneticAlgorithm(clues:clues, a:a, b:b, skillLevel:skillLevel)
@@ -326,7 +330,7 @@ class GeneticAlgorithm: NSObject {
         return (selectedCodes, infoGainValues, giveAwayValues)
     }
     
-    func chooseAttempt(attempts:[Attempt], ownCode:[Int], skillLevel:Double) -> ([[Int]], [Int], [Int]){
+    func chooseAttempt(attempts:[Attempt], ownCode:[Int], skillLevel:Double) -> ([[Int]], [Double], [Int]){
         // convert list of Attempt objects into list of Clue objects (can be processed easier by the GA)
         let clues = Clue.generateClues(attempts: attempts)
         // generate list of possible codes, along with two values per code

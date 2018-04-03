@@ -348,7 +348,7 @@
                                 </state>
                                 <connections>
                                     <action selector="reset:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W3f-i8-6Rn"/>
-                                    <segue destination="tm8-9d-dDE" kind="show" animates="NO" id="GeE-Ny-JGg"/>
+                                    <segue destination="tm8-9d-dDE" kind="show" identifier="gameToCode" animates="NO" id="GeE-Ny-JGg"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HkA-NL-h3j">
@@ -921,7 +921,7 @@ A code is a sequence of 4 colors.
                                         </attributes>
                                     </fragment>
                                     <fragment>
-                                        <mutableString key="content">
+                                        <string key="content">
 When the game starts, you can attempt to crack the code of your opponent.
 To do this, tap on a black circle and then select a color by tapping one of the colored circles which will show up below.
 After 4 colors have been selected, you may tap the "confirm" button to confirm your choice.
@@ -935,7 +935,7 @@ After this guess has been made, your opponent will make a guess.
 This will continue until either player correctly guesses the opponents code or if 8 guesses have been made in total.
 If no player has guessed the code after 8 turns, the game ends in a loss for both players.
 You may end the game early by pressing the "new game" button on the bottom right of the screen.
-Furthermore, after the game is over this button can also be pressed to start a new game.</mutableString>
+Furthermore, after the game is over this button can also be pressed to start a new game.</string>
                                         <attributes>
                                             <font key="NSFont" size="17" name="Verdana"/>
                                         </attributes>
